@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>抵押页面</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Datepicker CSS -->
+    <link th:href="@{/vendor/datepicker/datepicker3.css}" rel="stylesheet" type="text/css">
+
+    <!-- DataTables CSS -->
+    <link href="/vendor/bootstrap-table/css/bootstrap-table.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <div id="page-wrapper"  style="margin-left:0">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">抵押品具体信息</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!--  <form  th:action="@{/PledgeInfo}"  th:object="${pledge_entity}" method="post">  -->
+        <form th:action="@{/PledgeInfo}"  th:object="${pledge_entity}" method="post" >
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">通用信息</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!--客户号custcod-->
+                                    <div class="col-lg-4">
+                                        <input class="form-control" type="hidden" name="custcod" th:field="*{custcod}" >
+                                    </div>
+                                    <!--抵押信息id-->
+                                    <div class="col-lg-4">
+                                        <input class="form-control" type="hidden" name="id" th:field="*{id}" >
+                                    </div>
+                                    <!--抵押信息num-->
+                                    <div class="col-lg-4">
+                                        <input class="form-control" type="hidden" name="num" th:field="*{num}" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>额度号：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" name="line_no" th:field="*{line_no}" >
+                                        <div th:if="*{#fields.hasErrors('line_no')}" th:errors="*{line_no}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押合同编号：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" name="contractnumber" th:field="*{contractnumber}" >
+                                        <div th:if="*{#fields.hasErrors('contractnumber')}" th:errors="*{contractnumber}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押合同签订日期：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" name="signeddate" th:field="*{signeddate}">
+                                        <div th:if="*{#fields.hasErrors('signeddate')}" th:errors="*{signeddate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押品类型：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <select id="mode1" class="form-control" selected="" name="mode1" th:field="*{mode1}">
+                                            <option value="">-</option>
+                                            <option value="1">土地使用权</option>
+                                            <option value="2">房产</option>
+                                            <option value="3">设备</option>
+                                            <option value="4">车辆</option>
+                                            <option value="5">在建工程</option>
+                                            <option value="6">船舶</option>
+                                            <option value="7">采矿权</option>
+                                            <option value="8">其他</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('mode1')}" th:errors="*{mode1}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押期限：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" name="begindate" th:field="*{begindate}">
+                                        <div th:if="${#fields.hasErrors('begindate')}" th:errors="*{begindate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <label>至</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" name="enddate" th:field="*{enddate}">
+                                        <div th:if="${#fields.hasErrors('enddate')}" th:errors="*{enddate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押物原值：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="" th:field="*{originalvalueccy}" name="originalvalueccy">
+                                            <option value="">-</option>
+                                            <option th:each="originalvalueccy:${pledge_info.ccyList}" th:value="${originalvalueccy.CCY}" th:text="${originalvalueccy.CCYNAME}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('originalvalueccy')}" th:errors="*{originalvalueccy}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <input class="form-control" name="originalvalue"  th:field="*{originalvalue}">
+                                        <div th:if="${#fields.hasErrors('originalvalue')}" th:errors="*{originalvalue}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押物市场价值：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="" th:field="*{marketvalueccy}" name="marketvalueccy">
+                                            <option value="">-</option>
+                                            <option th:each="marketvalueccy:${pledge_info.ccyList}" th:value="${marketvalueccy.CCY}" th:text="${marketvalueccy.CCYNAME}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('marketvalueccy')}" th:errors="*{marketvalueccy}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <input class="form-control" name="marketvalue"  th:field="*{marketvalue}">
+                                        <div th:if="${#fields.hasErrors('marketvalue')}" th:errors="*{marketvalue}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押物评估值：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="" th:field="*{assessedvalueccy}" name="assessedvalueccy">
+                                            <option value="">-</option>
+                                            <option th:each="assessedvalueccy:${pledge_info.ccyList}" th:value="${assessedvalueccy.CCY}" th:text="${assessedvalueccy.CCYNAME}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('assessedvalueccy')}" th:errors="*{assessedvalueccy}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <input class="form-control" name="assessedvalue"  th:field="*{assessedvalue}">
+                                        <div th:if="${#fields.hasErrors('assessedvalue')}" th:errors="*{assessedvalue}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押金额：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="" th:field="*{amountccy}" name="amountccy" >
+                                            <option value="">-</option>
+                                            <option th:each="amountccy:${pledge_info.ccyList}" th:value="${amountccy.CCY}" th:text="${amountccy.CCYNAME}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('amountccy')}" th:errors="*{amountccy}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <input class="form-control" name="amount"  th:field="*{amount}">
+                                        <div th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押比率(%)：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" name="scale" th:field="*{scale}">
+                                        <div th:if="${#fields.hasErrors('scale')}" th:errors="*{scale}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>权属情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select id="BankPledgeOwnerType" class="form-control" selected="" name="owner" th:field="*{owner}" >
+                                            <option value="">-</option>
+                                            <option value="2">共有</option>
+                                            <option value="1">自有</option>
+                                            <option value="0">他有</option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>保险情况：</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <select id="IsInsuranceType" class="form-control" selected="" name="isinsurance" th:field="*{isinsurance}" >
+                                            <option value="">-</option>
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('isinsurance')}" th:errors="*{isinsurance}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>评估机构：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="assessmentagencies" th:field="*{assessmentagencies}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>评估日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="assessmentdate" th:field="*{assessmentdate}">
+                                        <!--<div class="input-group date">-->
+                                        <!--<div class="input-group-addon">-->
+                                        <!--<i class="fa fa-calendar"></i>-->
+                                        <!--</div>-->
+                                        <!--<input type="date" class="form-control pull-right datepicker" th:field="*{assessmentDate}" name="assessmentDate" id="assessmentDate">-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>评估报告编号：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="assessmentreportno" th:field="*{assessmentreportno}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>评估机构组织机构代码：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="organizationcode" th:field="*{organizationcode}">
+                                        <div th:if="*{#fields.hasErrors('organizationcode')}" th:errors="*{organizationcode}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divOwer" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">权属情况</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>贷款卡编码：</label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="ethnic" th:field="*{ethnic}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>证件类型：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected=""  name="pidtypeid" th:field="*{pidtypeid}" disabled>
+                                            <option value="">-</option>
+                                            <option th:each="idType:${pledge_info.idTypeList}" th:value="${idType.CSTCOD2}" th:text="${idType.CSTLDES}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>证件号码：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="pidno" th:field="*{pidno}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押/抵押人名称：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="mortgagorname" th:field="*{mortgagorname}" disabled>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>联系地址：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="contactaddress" th:field="*{contactaddress}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>联系电话：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="contactphone" th:field="*{contactphone}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divLand" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">土地使用权抵押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>土地使用权证号：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="landuserightsno" th:field="*{landuserightsno}">
+                                        <div th:if="*{#fields.hasErrors('landuserightsno')}" th:errors="*{landuserightsno}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>土地面积：</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input class="form-control" name="landarea" th:field="*{landarea}">
+                                        <div th:if="*{#fields.hasErrors('landarea')}" th:errors="*{landarea}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <select class="form-control" selected="" th:field="*{landareaunit}" name="landareaunit" >
+                                            <option value="">-</option>
+                                            <option value="亩">亩</option>
+                                            <option value="平方米">平方米</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('landareaunit')}" th:errors="*{landareaunit}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>地址：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="landaddress" th:field="*{landaddress}">
+                                        <div th:if="*{#fields.hasErrors('landaddress')}" th:errors="*{landaddress}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>土地获得方式：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{landaccessmethod}" name="landaccessmethod" >
+                                            <option value="">-</option>
+                                            <option value="1">划拨</option>
+                                            <option value="2">出让</option>
+                                            <option value="0">其他</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('landaccessmethod')}" th:errors="*{landaccessmethod}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>土地性质：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{landnature}" name="landnature" >
+                                            <option value="">-</option>
+                                            <option value="1">工业</option>
+                                            <option value="2">商业</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('landnature')}" th:errors="*{landnature}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>是否有附着物：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{landhaveattachment}" name="landhaveattachment" >
+                                            <option value="">-</option>
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('landhaveattachment')}" th:errors="*{landhaveattachment}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>附着物是否有权证：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{landhaveattachmentcertificate}" name="landhaveattachmentcertificate" >
+                                            <option value="">-</option>
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('landhaveattachmentcertificate')}" th:errors="*{landhaveattachmentcertificate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>附着物与土地权属是否一致：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{landattachmentisconsistent}" name="landattachmentisconsistent" >
+                                            <option value="">-</option>
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('landattachmentisconsistent')}" th:errors="*{landattachmentisconsistent}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>是否登记：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{landisreg}" name="landisreg" >
+                                            <option value="">-</option>
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('landisreg')}" th:errors="*{landisreg}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>登记机关：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="landregorgans" th:field="*{landregorgans}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>他项权利证号：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="landotherrightsno" th:field="*{landotherrightsno}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>其他情况说明：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="landotherremark" th:field="*{landotherremark}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divEstate" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">房产抵押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>房屋产权证号码：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estateno" th:field="*{estateno}">
+                                        <div th:if="*{#fields.hasErrors('estateno')}" th:errors="*{estateno}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>建筑面积（平方米）：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estatearea" th:field="*{estatearea}">
+                                        <div th:if="*{#fields.hasErrors('estatearea')}" th:errors="*{estatearea}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>地址：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estateaddress" th:field="*{estateaddress}">
+                                        <div th:if="*{#fields.hasErrors('estateaddress')}" th:errors="*{estateaddress}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>建筑结构：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{estatebuildingstructure}" name="estatebuildingstructure" >
+                                            <option value="">-</option>
+                                            <option value="1">砖混</option>
+                                            <option value="2">框架</option>
+                                            <option value="0">其他</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('estatebuildingstructure')}" th:errors="*{estatebuildingstructure}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>总层数：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estatefloors" th:field="*{estatefloors}">
+                                        <div th:if="*{#fields.hasErrors('estatefloors')}" th:errors="*{estatefloors}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>所在层数：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estateatfloor" th:field="*{estateatfloor}">
+                                        <div th:if="*{#fields.hasErrors('estateatfloor')}" th:errors="*{estateatfloor}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>建造日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estatebuildingdate" th:field="*{estatebuildingdate}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>是否登记：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{estateisreg}" name="estateisreg" >
+                                            <option value="">-</option>
+                                            <option value="1">是</option>
+                                            <option value="0">否</option>
+                                        </select>
+                                        <div th:if="*{#fields.hasErrors('estateisreg')}" th:errors="*{estateisreg}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>登记机关：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estateregorgans" th:field="*{estateregorgans}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>他项权利证号：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estateotherrightsno" th:field="*{estateotherrightsno}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>权证存放地：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estaterightsaddress" th:field="*{estaterightsaddress}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>附着土地权属人：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estateattatichmentowner" th:field="*{estateattatichmentowner}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>其他说明情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="estateremark" th:field="*{estateremark}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divVehicle" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">车辆抵押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseSeven" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>车辆品牌：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="vehiclebrand" th:field="*{vehiclebrand}">
+                                        <div th:if="*{#fields.hasErrors('vehiclebrand')}" th:errors="*{vehiclebrand}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>发动机号码：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="vehicleenginenumber" th:field="*{vehicleenginenumber}">
+                                        <div th:if="*{#fields.hasErrors('vehicleenginenumber')}" th:errors="*{vehicleenginenumber}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>车辆型号：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="vehicletype" th:field="*{vehicletype}">
+                                        <div th:if="*{#fields.hasErrors('vehicletype')}" th:errors="*{vehicletype}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>车架号码：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="vehiclechassisnumber" th:field="*{vehiclechassisnumber}">
+                                        <div th:if="*{#fields.hasErrors('vehiclechassisnumber')}" th:errors="*{vehiclechassisnumber}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>购入日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="vehiclebuydate" th:field="*{vehiclebuydate}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>预计报废日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="vehicleexpectedretirementdate" th:field="*{vehicleexpectedretirementdate}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>已行驶里程：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="vehiclerunlong" th:field="*{vehiclerunlong}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>车牌号码：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="vehiclelicensenumber" th:field="*{vehiclelicensenumber}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>其他说明情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="vehicleremark" th:field="*{vehicleremark}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divDevice" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">设备抵押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseSix" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>设备名称：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="devicename" th:field="*{devicename}">
+                                        <div th:if="*{#fields.hasErrors('devicename')}" th:errors="*{devicename}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>型号：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="devicetype" th:field="*{devicetype}">
+                                        <div th:if="*{#fields.hasErrors('devicetype')}" th:errors="*{devicetype}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>单位：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="deviceunit" th:field="*{deviceunit}">
+                                        <div th:if="*{#fields.hasErrors('deviceunit')}" th:errors="*{deviceunit}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>数量：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="devicenumber" th:field="*{devicenumber}">
+                                        <div th:if="*{#fields.hasErrors('devicenumber')}" th:errors="*{devicenumber}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>出厂日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="deviceexfactorydate" th:field="*{deviceexfactorydate}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>已使用年限：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="deviceusedyears" th:field="*{deviceusedyears}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>预计报废年限：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="deviceretirementyears" th:field="*{deviceretirementyears}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>所在地：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="deviceaddress" th:field="*{deviceaddress}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>其他说明情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="deviceremark" th:field="*{deviceremark}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divShip" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseNine">船舶抵押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseNine" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>船舶品牌：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="shipbrand" th:field="*{shipbrand}">
+                                        <div th:if="*{#fields.hasErrors('shipbrand')}" th:errors="*{shipbrand}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>船舶型号：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="shiptype" th:field="*{shiptype}">
+                                        <div th:if="*{#fields.hasErrors('shiptype')}" th:errors="*{shiptype}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>牌照号码：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="shiplicenenumber" th:field="*{shiplicenenumber}">
+                                        <div th:if="*{#fields.hasErrors('shiplicenenumber')}" th:errors="*{shiplicenenumber}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>出厂日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="shipexfactorydate" th:field="*{shipexfactorydate}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>航行里程（海里）：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="shipnavmil" th:field="*{shipnavmil}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>权属情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{shiprights}" name="shiprights" >
+                                            <option value="">-</option>
+                                            <option value="1">他有</option>
+                                            <option value="0">自有</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>用途：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{shipuse}" name="shipuse" >
+                                            <option value="">-</option>
+                                            <option value="0">客运</option>
+                                            <option value="1">货运</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>数量：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="shipnumber" th:field="*{shipnumber}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>其他说明情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="shipremark" th:field="*{shipremark}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divMining" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTen">采矿权抵押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTen" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>采矿权人：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="miningperson" th:field="*{miningperson}">
+                                        <div th:if="*{#fields.hasErrors('miningperson')}" th:errors="*{miningperson}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>采矿许可证编号：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="mininglicencenumber" th:field="*{mininglicencenumber}">
+                                        <div th:if="*{#fields.hasErrors('mininglicencenumber')}" th:errors="*{mininglicencenumber}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>矿产地址：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="miningaddress" th:field="*{miningaddress}">
+                                        <div th:if="*{#fields.hasErrors('miningaddress')}" th:errors="*{miningaddress}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>开采矿种：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="miningtype" th:field="*{miningtype}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>矿山名称：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="miningname" th:field="*{miningname}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>开采方式：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="miningworktype" th:field="*{miningworktype}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>生产规模：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="miningproductionscale" th:field="*{miningproductionscale}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>矿区面积：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="miningarea" th:field="*{miningarea}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>采矿许可证失效日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="mininglastdate" th:field="*{mininglastdate}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>其他说明情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="miningremark" th:field="*{miningremark}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divOther" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">其他抵押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseEleven" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>抵押物名称：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="othername" th:field="*{othername}">
+                                        <div th:if="*{#fields.hasErrors('othername')}" th:errors="*{othername}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>单位：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="otherunit" th:field="*{otherunit}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>数量：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="othernumber" th:field="*{othernumber}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>所在地：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="otheraddress" th:field="*{otheraddress}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>其他说明情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="otherremark" th:field="*{otherremark}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divProject" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">在建工程抵押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseEight" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>工程名称：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectname" th:field="*{projectname}">
+                                        <div th:if="*{#fields.hasErrors('projectname')}" th:errors="*{projectname}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>附着土地面积：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectattathimentarea" th:field="*{projectattathimentarea}">
+                                        <div th:if="*{#fields.hasErrors('projectattathimentarea')}" th:errors="*{projectattathimentarea}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>建筑面积：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectbuildingarea" th:field="*{projectbuildingarea}">
+                                        <div th:if="*{#fields.hasErrors('projectbuildingarea')}" th:errors="*{projectbuildingarea}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>地址：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectaddress" th:field="*{projectaddress}">
+                                        <div th:if="*{#fields.hasErrors('projectaddress')}" th:errors="*{projectaddress}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>建筑机构：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectbuildingorg" th:field="*{projectbuildingorg}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>层数：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectbuildingfloors" th:field="*{projectbuildingfloors}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>建筑日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectbuildingdate" th:field="*{projectbuildingdate}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>拟竣工日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectexpectedcompletiondate" th:field="*{projectexpectedcompletiondate}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>施工单位：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectconstructionunit" th:field="*{projectconstructionunit}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>其他说明情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="projectremark" th:field="*{projectremark}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divInsurance" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">保险信息</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>保单号码：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="insuranceno" th:field="*{insuranceno}">
+                                        <div th:if="${#fields.hasErrors('insuranceno')}" th:errors="*{insuranceno}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>生效日：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="insuranceeffectivedate" th:field="*{insuranceeffectivedate}">
+                                        <div th:if="${#fields.hasErrors('insuranceeffectivedate')}" th:errors="*{insuranceeffectivedate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>到期日：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="insurancematuritydate" th:field="*{insurancematuritydate}">
+                                        <div th:if="${#fields.hasErrors('insurancematuritydate')}" th:errors="*{insurancematuritydate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>保险种类：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="insurancetype" th:field="*{insurancetype}">
+                                        <div th:if="${#fields.hasErrors('insurancetype')}" th:errors="*{insurancetype}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>保险公司名称：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{insurancecompany}" name="insurancecompany" >
+                                            <option value="">-</option>
+                                            <option th:each="insurancecompany:${pledge_info.insuranceList}" th:value="${insurancecompany.NAME}" th:text="${insurancecompany.NAME}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('insurancecompany')}" th:errors="*{insurancecompany}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>投保金额：</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <select class="form-control" selected="" th:field="*{insuranceamountccy}" name="insuranceamountccy" >
+                                            <option value="">-</option>
+                                            <option th:each="insuranceamountccy:${pledge_info.ccyList}" th:value="${insuranceamountccy.CCY}" th:text="${insuranceamountccy.CCYNAME}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('insuranceamountccy')}" th:errors="*{insuranceamountccy}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input class="form-control" name="insuranceamount" th:field="*{insuranceamount}">
+                                        <div th:if="${#fields.hasErrors('insuranceamount')}" th:errors="*{insuranceamount}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                        <label>受益人：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="insurancebeneficiaries" th:field="*{insurancebeneficiaries}">
+                                        <div th:if="${#fields.hasErrors('insurancebeneficiaries')}" th:errors="*{insurancebeneficiaries}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <button type="submit" id="btn_submit" class="btn btn-primary">保存</button>
+                </div>
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4"></div>
+            </div>
+        </form>
+
+        <div id="Table" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse20">抵押表格信息</a>
+                </h4>
+            </div>
+            <div id="collapse20" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="toolbar" class="btn-group">
+                                <button id="btn_add" type="button"
+                                        class="btn btn-sm btn-primary">
+                                    <span class="fa fa-plus" aria-hidden="true"></span>新增
+                                </button>
+                                <button type="button" id="btn_delete" class="btn btn-sm btn-danger">
+                                    <span class="fa fa-minus" aria-hidden="true"></span>删除
+                                </button>
+                            </div>
+                            <table id="pledgeNewList"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/dist/js/sb-admin-2.js"></script>
+
+<!-- Datepicker JavaScript -->
+<script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+
+<!-- DataTables JavaScript -->
+<script src="/vendor/bootstrap-table/bootstrap-table.js"></script>
+<script src="/vendor/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+
+<!-- PledgeTable JavaScript -->
+<script src="/js/own/pledgeTable.js"></script>
+</body>
+
+</html>

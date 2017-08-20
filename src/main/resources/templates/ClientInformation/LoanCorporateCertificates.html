@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Loancorporatecertificates</title>
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap-table.js}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{/dist/js/sb-admin-2.js}"></script>
+    <script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+    <link href="/vendor/bootstrap/css/bootstrap-table.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/vendor/datepicker/datepicker3.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Bootstrap Core CSS -->
+</head>
+
+
+<body>
+
+
+<div id="wrapper">
+    <div id="page-wrapper" style="margin-left:0">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">证件管理</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!--  <form  th:action="@{/PledgeInfo}"  th:object="${pledge_entity}" method="post">  -->
+        <form th:action="@{/LoanCorporateCertificates}" id="LoanCorporateCertificates" method="post">
+            <div th:object="${loanCorporateCertificates_entity}">
+                <div class="panel-group" id="accordion">
+                    <!--start-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">国税登记证</a>
+                            </h4>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>期限:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <select id="NTRegistraCertificatePeriod"
+                                                    onchange="doChangeNTRegistraCertificatePeriod()"
+                                                    class="form-control"
+                                                    th:field="*{NTRegistraCertificatePeriod}"
+                                                    name="NTRegistraCertificatePeriod">
+                                                <option selected="selected" value="1">有期限</option>
+                                                <option value="2">无期限</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('NTRegistraCertificatePeriod')}"
+                                                 th:errors="${loanCorporateCertificates_entity.NTRegistraCertificatePeriod}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>起始日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="NTRegistraCertificateStartDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{NTRegistraCertificateStartDate}"
+                                                   name="NTRegistraCertificateStartDate"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>终止日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="NTRegistraCertificateEndDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{NTRegistraCertificateEndDate}"
+                                                   name="NTRegistraCertificateEndDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('NTRegistraCertificateStartDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.NTRegistraCertificateStartDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('NTRegistraCertificateEndDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.NTRegistraCertificateEndDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--地税登记证-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">地税登记证</a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>期限:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <select id="GRRegistraCertificatePeriod"
+                                                    onchange="doChangeGRRegistraCertificatePeriod()"
+                                                    class="form-control"
+                                                    th:field="*{GRRegistraCertificatePeriod}"
+                                                    name="GRRegistraCertificatePeriod">
+                                                <option selected="selected" value="1">有期限</option>
+                                                <option value="2">无期限</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('GRRegistraCertificatePeriod')}"
+                                                 th:errors="${loanCorporateCertificates_entity.GRRegistraCertificatePeriod}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>起始日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="GRRegistraCertificateStartDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{GRRegistraCertificateStartDate}"
+                                                   name="GRRegistraCertificateStartDate"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>终止日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="GRRegistraCertificateEndDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{GRRegistraCertificateEndDate}"
+                                                   name="GRRegistraCertificateEndDate"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('GRRegistraCertificateStartDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.GRRegistraCertificateStartDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('GRRegistraCertificateEndDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.GRRegistraCertificateEndDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--机构代码证-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">机构代码证</a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>登记号:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{OCCertificateRegisterNumber}"
+                                                   name="OCCertificateRegisterNumber " maxlength="30"
+                                                   pattern="[A-Za-z0-9]+$" th:title="30位以内的英文或者数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('OCCertificateRegisterNumber')}"
+                                                 th:errors="${loanCorporateCertificates_entity.OCCertificateRegisterNumber}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>失效日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="OCCertificateExpiryDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{OCCertificateExpiryDate}"
+                                                   name="OCCertificateExpiryDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('OCCertificateExpiryDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.OCCertificateExpiryDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--基本账户开户许可证-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">基本账户开户许可证</a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>基本账户开户许可证编号:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{BAOpenPermissionNumber}"
+                                                   name="BAOpenPermissionNumber " maxlength="40"
+                                                   pattern="[A-Za-z0-9]+$" th:title="请输入40位以内的英文或者数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('BAOpenPermissionNumber')}"
+                                                 th:errors="${loanCorporateCertificates_entity.BAOpenPermissionNumber}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>核准号:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{BAOpenPermissionApprovalNumber}"
+                                                   name="BAOpenPermissionApprovalNumber " maxlength="20"
+                                                   pattern="[A-Za-z0-9]+$" th:title="请输入20位以内的英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>发证日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="BAOpenPermissionIssueDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{BAOpenPermissionIssueDate}"
+                                                   name="BAOpenPermissionIssueDate" id="BAOpenPermissionIssueDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('BAOpenPermissionApprovalNumber')}"
+                                                 th:errors="${loanCorporateCertificates_entity.BAOpenPermissionApprovalNumber}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('BAOpenPermissionIssueDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.BAOpenPermissionIssueDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>开户行:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{BAOpenPermissionBank}"
+                                                   name="BAOpenPermissionBank " maxlength="50"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入50位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>账号:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{BAOpenPermissionAccountNumber}"
+                                                   name="BAOpenPermissionAccountNumber " maxlength="30"
+                                                   pattern="^[A-Za-z0-9]+$" th:title="请输入30位以内的英文或者数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('BAOpenPermissionBank')}"
+                                                 th:errors="${loanCorporateCertificates_entity.BAOpenPermissionBank}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('BAOpenPermissionAccountNumber')}"
+                                                 th:errors="${loanCorporateCertificates_entity.BAOpenPermissionAccountNumber}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--事业单位法人证-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">事业单位法人证</a>
+                            </h4>
+                        </div>
+                        <div id="collapseFive" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>发证机关:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{PSUAPCertificateIssuedBy}"
+                                                   name="PSUAPCertificateIssuedBy " maxlength="20"
+                                                   pattern="^.{0,20}$" th:title="请输入20位以内的字符">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateIssuedBy')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateIssuedBy}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>证件号码:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{PSUAPCertificateCertificateNum}"
+                                                   name="PSUAPCertificateCertificateNum " maxlength="20"
+                                                   pattern="[A-Za-z0-9]+$" th:title="请输入20位以内的英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>法定代表人:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{PSUAPCertificateLegalRepresen}"
+                                                   name="PSUAPCertificateLegalRepresen " maxlength="10"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入10位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateCertificateNum')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateCertificateNum}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateLegalRepresen')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateLegalRepresen}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>经费来源:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{PSUAPCertificateFundSource}"
+                                                   name="PSUAPCertificateFundSource " maxlength="10"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入10位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>开办资金(万元):</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{PSUAPCertificateInitialFund}"
+                                                   name="PSUAPCertificateInitialFund " maxlength="15"
+                                                   pattern="^[0-9]+(\.[0-9]{2})?$" th:title="请输入15位以内最多带有两位小数的数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateFundSource')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateFundSource}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateInitialFund')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateInitialFund}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>举办单位:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{PSUAPCertificateOrganizer}"
+                                                   name="PSUAPCertificateOrganizer " maxlength="20"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入20位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>住所:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{PSUAPCertificateAddress}"
+                                                   name="PSUAPCertificateAddress " maxlength="40"
+                                                   pattern="^.{0,40}$" th:title="请输入40位以内的字符">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateOrganizer')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateOrganizer}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateAddress')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateAddress}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>登记管理机关:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{PSUAPCertificateRMOrganization}"
+                                                   name="PSUAPCertificateRMOrganization " maxlength="20"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入20位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>期限:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <select id="PSUAPCertificatePeriod" class="form-control"
+                                                    onchange="doChangePSUAPCertificatePeriod()"
+                                                    th:field="*{PSUAPCertificatePeriod}" name="PSUAPCertificatePeriod">
+                                                <option selected="selected" value="1">有期限</option>
+                                                <option value="2">无期限</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateRMOrganization')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateRMOrganization}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificatePeriod')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificatePeriod}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>起始日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="PSUAPCertificateStartDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{PSUAPCertificateStartDate}"
+                                                   name="PSUAPCertificateStartDate" id="PSUAPCertificateStartDate">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>终止日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="PSUAPCertificateEndDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{PSUAPCertificateEndDate}"
+                                                   name="PSUAPCertificateEndDate" id="PSUAPCertificateEndDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateStartDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateStartDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificateEndDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificateEndDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>宗旨和业务范围：</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <textarea class="form-control" row="5"
+                                                      th:field="*{PSUAPCertificatePurposeASOfB}"
+                                                      name="PSUAPCertificatePurposeASOfB" maxlength="100"
+                                                      pattern="^.{0,100}$" th:title="请输入100位以内的字符"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('PSUAPCertificatePurposeASOfB')}"
+                                                 th:errors="${loanCorporateCertificates_entity.PSUAPCertificatePurposeASOfB}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--外企证书-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">外企证书</a>
+                            </h4>
+                        </div>
+                        <div id="collapseSix" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>进出口企业代码:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FCImportExportEnterpriseCode}"
+                                                   name="FCImportExportEnterpriseCode " maxlength="30"
+                                                   pattern="[A-Za-z0-9]+$" th:title="请输入30位以内的英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>批准日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control pull-right datepicker"
+                                                   th:field="*{FCApprovalDate}"
+                                                   name="FCApprovalDate" id="FCApprovalDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FCImportExportEnterpriseCode')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FCImportExportEnterpriseCode}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FCApprovalDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FCApprovalDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>经营年限:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FCYearsOfBusiness}"
+                                                   name="FCYearsOfBusiness " maxlength="10"
+                                                   pattern="^[0-9]*$" th:title="请输入10位以内的整数">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>投资总额:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FCTotalInvestment}"
+                                                   name="FCTotalInvestment " maxlength="18"
+                                                   pattern="^[0-9]*$" th:title="请输入18位以内的整数">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FCYearsOfBusiness')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FCYearsOfBusiness}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FCTotalInvestment')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FCTotalInvestment}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>批准号码:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FCApprovalNumber}"
+                                                   name="FCApprovalNumber " maxlength="50"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入50位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FCApprovalNumber')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FCApprovalNumber}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--进出口许可证-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">进出口许可证</a>
+                            </h4>
+                        </div>
+                        <div id="collapseSeven" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>备案登记号:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{IExportRecordNumber}"
+                                                   name="IExportRecordNumber " maxlength="20"
+                                                   pattern="[A-Za-z0-9]+$" th:title="请输入20位以内的英文或者数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('IExportRecordNumber')}"
+                                                 th:errors="${loanCorporateCertificates_entity.IExportRecordNumber}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>进出口企业代码:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{IExportEnterpriseCode}"
+                                                   name="IExportEnterpriseCode " maxlength="20"
+                                                   pattern="[A-Za-z0-9]+$" th:title="请输入20位以内的英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>登记备案机关:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{IExportRegistrationAuthority}"
+                                                   name="IExportRegistrationAuthority " maxlength="30"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$"
+                                                   th:title="请输入30位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('IExportEnterpriseCode')}"
+                                                 th:errors="${loanCorporateCertificates_entity.IExportEnterpriseCode}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('IExportRegistrationAuthority')}"
+                                                 th:errors="${loanCorporateCertificates_entity.IExportRegistrationAuthority}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--外汇登记证-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">外汇登记证</a>
+                            </h4>
+                        </div>
+                        <div id="collapseEight" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <br/>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>登记号码:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FERegistrationNumber}"
+                                                   name="FERegistrationNumber " maxlength="20"
+                                                   pattern="[A-Za-z0-9]+$" th:title="请输入20位以内的英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>登记日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="FERegistrationDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{FERegistrationDate}"
+                                                   name="FERegistrationDate" id="FERegistrationDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FERegistrationNumber')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FERegistrationNumber}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FERegistrationDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FERegistrationDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>登记机关:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FERegistrationOrganization}"
+                                                   name="FERegistrationOrganization " maxlength="20"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入20位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>外汇账户类型:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FExchangeAccountType}"
+                                                   name="FExchangeAccountType " maxlength="20"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入20位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FERegistrationOrganization')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FERegistrationOrganization}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FExchangeAccountType')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FExchangeAccountType}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>外汇账户最高限额:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FExchangeCeilingAmount}"
+                                                   name="FExchangeCeilingAmount " maxlength="20"
+                                                   pattern="^\d{m,n}$" th:title="请输入20位以内的整数">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>外汇账户批准文号:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FExchangeApprovalNumber}"
+                                                   name="FExchangeApprovalNumber " maxlength="20"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入20位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FExchangeCeilingAmount')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FExchangeCeilingAmount}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FExchangeApprovalNumber')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FExchangeApprovalNumber}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>外汇账户开户银行:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" th:field="*{FExchangeBankOfAccount}"
+                                                   name="FExchangeBankOfAccount " maxlength="20"
+                                                   pattern="^[\u4E00-\u9FA5A-Za-z0-9]+$" th:title="请输入20位以内的中文英文或者数字">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label>外汇账户开户日期:</label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input id="FExchangeOpenDate"
+                                                   class="form-control pull-right datepicker"
+                                                   th:field="*{FExchangeOpenDate}"
+                                                   name="FExchangeOpenDate" id="FExchangeOpenDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FExchangeBankOfAccount')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FExchangeBankOfAccount}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <label></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div th:if="${#fields.hasErrors('FExchangeOpenDate')}"
+                                                 th:errors="${loanCorporateCertificates_entity.FExchangeOpenDate}"
+                                                 class="alert alert-danger">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<form th:action="@{/LoanSpecialTradeLicense}" id="LoanSpecialTradeLicense" method="post"-->
+            <!--&gt;-->
+            <!--特种行业许可证-->
+            <!--th:object="${loanSpecialTradeLicense_entity}"-->
+            <div th:object="${loanSpecialTradeLicense_entity}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <ul id="myTab1" class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#collapseNine" data-parent="#accordion" data-toggle="collapse">
+                                        特种行业许可证
+                                    </a>
+                                </li>
+                                <li><a href="javascript:void(0)" id="STupdateActioon" onclick="STsave()">存储</a></li>
+                                <li><a href="javascript:void(0)" id="STdeleteAction">删除</a></li>
+                            </ul>
+                        </h4>
+                    </div>
+                    <div id="collapseNine" class="panel-collapse collapse in">
+                        <input class="form-control" id="STid" type="hidden" name="STid" th:field="*{STid}">
+                        <input class="form-control" id="STcustcode" type="hidden" name="STcustcode"
+                               th:field="*{STcustcode}">
+                        <input class="form-control" id="STspeciallicensenumber" type="hidden"
+                               name="STspeciallicensenumber" th:field="*{STspeciallicensenumber}">
+                        <div class="panel-body">
+                            <br/>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>证件名称:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{STlicensename}"
+                                               name="STlicensename " maxlength="20">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>证件号码:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{STlicensenumber}"
+                                               name="STlicensenumber " maxlength="20">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div th:if="${#fields.hasErrors('STlicensename')}"
+                                             th:errors="${loanSpecialTradeLicense_entity.STlicensename}"
+                                             class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div th:if="${#fields.hasErrors('STlicensenumber')}"
+                                             th:errors="${loanSpecialTradeLicense_entity.STlicensenumber}"
+                                             class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>发证机关:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{STissuedby}"
+                                               name="STissuedby " maxlength="20">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>失效日期:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input id="STexpirydate"
+                                               class="form-control pull-right datepicker"
+                                               th:field="*{STexpirydate}"
+                                               name="expirydate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div th:if="${#fields.hasErrors('STissuedby')}"
+                                             th:errors="${loanSpecialTradeLicense_entity.STissuedby}"
+                                             class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div th:if="${#fields.hasErrors('STexpirydate')}"
+                                             th:errors="${loanSpecialTradeLicense_entity.STexpirydate}"
+                                             class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSTHistory">特种行业许可证保存记录</a>
+                    </h4>
+                </div>
+                <div id="collapseSTHistory" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <table id="SThistoryTable">
+                            <thead>
+                            </thead>
+                        </table>
+                        <br/>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!--<form th:action="@{/LoanQualificationCertificate}" id="LoanQualificationCertificate"-->
+            <!--method="post">-->
+            <!--资质证-->
+            <div th:object="${loanQualificationCertificate_entity}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#collapseTen" data-parent="#accordion" data-toggle="collapse">
+                                        资质证
+                                    </a>
+                                </li>
+                                <li><a href="javascript:void(0)" onclick="QCsave()">存储</a></li>
+                                <li><a href="javascript:void(0)" id="QCdeleteAction">删除</a></li>
+                            </ul>
+                        </h4>
+                    </div>
+                    <div id="collapseTen" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <br/>
+                            <input class="form-control" id="QCid" type="hidden"
+                                   name="QCid" th:field="*{QCid}">
+                            <input class="form-control" id="QCcustcode" type="hidden" name="QCcustcode"
+                                   th:field="*{QCcustcode}">
+                            <input class="form-control" id="QCqualificationnumber" type="hidden"
+                                   name="QCqualificationnumber" th:field="*{QCqualificationnumber}">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>资质等级:</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" th:field="*{QCqualificationlevel}"
+                                                id="QCqualificationlevel"
+                                                name="QCqualificationlevel">
+                                            <option value="0">无</option>
+                                            <option value="1">特级</option>
+                                            <option value="2">一级</option>
+                                            <option value="3">二级</option>
+                                            <option value="4">三级</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>证件号码:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{QClicensenumber}"
+                                               name="QClicensenumber" maxlength="20" required
+                                               pattern="^[A-Za-z0-9]+$" th:title="请输入20位以内的英文或者数字">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div th:if="${#fields.hasErrors('QCqualificationlevel')}"
+                                             th:errors="${loanQualificationCertificate_entity.QCqualificationlevel}"
+                                             class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div th:if="${#fields.hasErrors('QClicensenumber')}"
+                                             th:errors="${loanQualificationCertificate_entity.QClicensenumber}"
+                                             class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>证书名称:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{QClicensename}"
+                                               name="QClicensename" maxlength="20" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div th:if="${#fields.hasErrors('QClicensename')}"
+                                             th:errors="${loanQualificationCertificate_entity.QClicensename}"
+                                             class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>发证机关:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{QCissuedby}"
+                                               name="QCissuedby" maxlength="20">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>失效日期:</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input id="QCexpirydate"
+                                               class="form-control pull-right datepicker"
+                                               th:field="*{QCexpirydate}"
+                                               name="QCexpirydate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div th:if="${#fields.hasErrors('QCissuedby')}"
+                                             th:errors="${loanQualificationCertificate_entity.QCissuedby}"
+                                             class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div th:if="${#fields.hasErrors('QCexpirydate')}"
+                                             th:errors="${loanQualificationCertificate_entity.QCexpirydate}"
+                                             class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseQCHistory">资质证</a>
+                            </h4>
+                        </div>
+                        <div id="collapseQCHistory" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <table id="QChistoryTable">
+                                    <thead>
+                                    </thead>
+                                </table>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4" align="center">
+                <button type="reset" class="btn btn-primary">重 填</button>
+                <button type="button" onclick="submitAll()" class="btn btn-primary">保 存</button>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function submitAll() {
+
+        $("#LoanCorporateCertificates").attr("action", "/LoanCorporateCertificates");
+        $("#LoanCorporateCertificates").submit();
+//        var loanCorporateCertificates_form = document.getElementById("LoanCorporateCertificates");
+//        var loanQualificationCertificate_form = document.getElementById("LoanQualificationCertificate");
+//        var loanSpecialTradeLicense_form = document.getElementById("LoanSpecialTradeLicense");
+//        loanCorporateCertificates_form.submit();
+//        loanSpecialTradeLicense_form.submit();
+//        loanQualificationCertificate_form.submit();
+    }
+
+    $('.datepicker').datepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+
+    });
+    //    国税登记证
+    $('#NTRegistraCertificateStartDate').datepicker({
+        language: 'zh-CN',
+        format: 'yyyymmdd',
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date()
+    }).on('changeDate', function (e) {
+        var startTime = e.date;
+        $('#NTRegistraCertificateEndDate').datepicker('setStartDate', startTime);
+    });
+    //结束时间：
+    $('#NTRegistraCertificateEndDate').datepicker({
+        language: 'zh-CN',
+        format: 'yyyymmdd',
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date()
+    }).on('changeDate', function (e) {
+        var endTime = e.date;
+        $('#NTRegistraCertificateStartDate').datepicker('setEndDate', endTime);
+    });
+
+    //地税登记证
+    $('#GRRegistraCertificateStartDate').datepicker({
+        language: 'zh-CN',
+        format: 'yyyymmdd',
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date()
+    }).on('changeDate', function (e) {
+        var startTime = e.date;
+        $('#GRRegistraCertificateEndDate').datepicker('setStartDate', startTime);
+    });
+    //结束时间：
+    $('#GRRegistraCertificateEndDate').datepicker({
+        language: 'zh-CN',
+        format: 'yyyymmdd',
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date()
+    }).on('changeDate', function (e) {
+        var endTime = e.date;
+        $('#GRRegistraCertificateStartDate').datepicker('setEndDate', endTime);
+    });
+
+    //事业单位法人证
+    $('#PSUAPCertificateStartDate').datepicker({
+        language: 'zh-CN',
+        format: 'yyyymmdd',
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date()
+    }).on('changeDate', function (e) {
+        var startTime = e.date;
+        $('#PSUAPCertificateEndDate').datepicker('setStartDate', startTime);
+    });
+    //结束时间：
+    $('#PSUAPCertificateEndDate').datepicker({
+        language: 'zh-CN',
+        format: 'yyyymmdd',
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+        endDate: new Date()
+    }).on('changeDate', function (e) {
+        var endTime = e.date;
+        $('#PSUAPCertificateStartDate').datepicker('setEndDate', endTime);
+    });
+
+
+    function doChangeNTRegistraCertificatePeriod() {
+        var flag = document.getElementById("NTRegistraCertificatePeriod");
+        var index = flag.selectedIndex;
+        if (flag.options[index].value == "1") {
+            document.getElementById("NTRegistraCertificateStartDate").style.display = 'block';
+            document.getElementById("NTRegistraCertificateEndDate").style.display = 'block';
+        }
+        if (flag.options[index].value == "2") {
+            document.getElementById("NTRegistraCertificateStartDate").style.display = 'none';
+            document.getElementById("NTRegistraCertificateEndDate").style.display = 'none';
+        }
+    }
+    function doChangeGRRegistraCertificatePeriod() {
+        var flag = document.getElementById("GRRegistraCertificatePeriod");
+        var index = flag.selectedIndex;
+        if (flag.options[index].value == "1") {
+            document.getElementById("GRRegistraCertificateStartDate").style.display = 'block';
+            document.getElementById("GRRegistraCertificateEndDate").style.display = 'block';
+        }
+        if (flag.options[index].value == "2") {
+            document.getElementById("GRRegistraCertificateStartDate").style.display = 'none';
+            document.getElementById("GRRegistraCertificateEndDate").style.display = 'none';
+        }
+    }
+    function doChangePSUAPCertificatePeriod() {
+        var flag = document.getElementById("PSUAPCertificatePeriod");
+        var index = flag.selectedIndex;
+        if (flag.options[index].value == "1") {
+            document.getElementById("PSUAPCertificateStartDate").style.display = 'block';
+            document.getElementById("PSUAPCertificateEndDate").style.display = 'block';
+        }
+        if (flag.options[index].value == "2") {
+            document.getElementById("PSUAPCertificateStartDate").style.display = 'none';
+            document.getElementById("PSUAPCertificateEndDate").style.display = 'none';
+        }
+    }
+
+
+    $('#SThistoryTable').bootstrapTable({
+        url: 'http://localhost:8001/LoanCorporateCertificates/getSTHistoryList',         //请求后台的URL（*）
+        method: 'get',                      //请求方式（*）
+        toolbar: '#toolbar',                //工具按钮用哪个容器
+        striped: true,                      //是否显示行间隔色
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        sortable: false,                     //是否启用排序
+        sortOrder: "asc",
+//        dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里只有前后端约定好就行
+        locale: 'zh-CN',                     //中文支持
+        pagination: true,                   //是否分页
+        sidePagination: 'server',           //指定服务器端分页
+        pageNumber: 1,                      //初始化加载第一页，默认第一页
+        pageSize: 5,                       //每页的记录行数（*）
+        pageList: [5, 10, 15, 50, 100, 'ALL'],        //可供选择的每页的行数（*）
+//        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        strictSearch: true,                 //搜索
+        showColumns: true,                  //是否显示所有的列
+        showRefresh: true,                  //是否显示刷新按钮
+        minimumCountColumns: 1,             //最少允许的列数
+        clickToSelect: true,                //是否启用点击选中行
+//                height: 500,              //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        uniqueId: "id",               //每一行的唯一标识，一般为主键列
+        showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+        cardView: false,                    //是否显示详细视图
+        detailView: false,                   //是否显示父子表
+        queryParams: STqueryParams,//请求服务器时所传的参数
+        responseHandler: STresponseHandler,//请求数据成功后，渲染表格前的方法
+        onClickRow: STonClickRow,
+        columns: [{
+            field: 'id',
+            title: 'Id'
+        }, {
+//            field: 'custcode',
+//            title: '客户号'
+//        }, {
+//            field: 'speciallicensenumber',
+//            title: '特种行业许可号码'
+//        }, {
+            field: 'licensename',
+            title: '证件名称'
+        }, {
+            field: 'licensenumber',
+            title: '证件号码'
+        }, {
+            field: 'issuedby',
+            title: '发证机关'
+        }, {
+            field: 'expirydate',
+            title: '失效日期'
+        }]
+    })
+    //点击行事件
+    function STonClickRow(item, $element) {
+        $('#STid').val(item.id);
+        $('#STcustcode').val(item.custcode);
+        $('#STspeciallicensenumber').val(item.speciallicensenumber);
+        $('#STlicensename').val(item.licensename);
+        $('#STlicensenumber').val(item.licensenumber);
+        $('#STissuedby').val(item.issuedby);
+        $('#STexpirydate').val(item.expirydate);
+        return true;
+    }
+    //请求服务数据时所传参数
+    function STqueryParams(params) {
+        return {
+            pageSize: params.limit, //每一页的数据行数，默认是上面设置的10(pageSize)
+            pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+        }
+    }
+
+    //请求成功方法
+    function STresponseHandler(result) {
+        var errCode = result.errCode;//在此做了错误代码的判断
+        if (errCode != 0) {
+            alert("错误代码" + errCode);
+            return;
+        }
+        //如果没有错误则返回数据，渲染表格
+        return {
+            total: result.dataLength, //总页数,前面的key必须为"total"
+            rows: result.rowDatas //行数据，前面的key要与之前设置的dataField的值一致.
+        };
+    };
+
+
+    function STsave() {
+        $("#LoanCorporateCertificates").attr("action", "/LoanSpecialTradeLicense");
+        $("#LoanCorporateCertificates").submit();
+    }
+
+    $('#STdeleteAction').click(function () {
+
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8001/LoanCorporateCertificates/deleteLoanSpecialTradeLicense?'
+            + 'STid=' + $('#STid').val()
+            + '',
+            contentType: "application/json",
+            success: function (data) {
+                $('#SThistoryTable').bootstrapTable("refresh", {url: "http://localhost:8001/LoanCorporateCertificates/getSTHistoryList"});
+                STlicensename.value = "";
+                STlicensenumber.value = "";
+                STissuedby.value = "";
+                STexpirydate.value = "";
+//                window.location.reload();
+            },
+            error: function () {
+                alert("error")
+            }
+        })
+    });
+
+
+    $('#QChistoryTable').bootstrapTable({
+        url: 'http://localhost:8001/LoanCorporateCertificates/getQCHistoryList',         //请求后台的URL（*）
+        method: 'get',                      //请求方式（*）
+        toolbar: '#toolbar',                //工具按钮用哪个容器
+        striped: true,                      //是否显示行间隔色
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        sortable: false,                     //是否启用排序
+        sortOrder: "asc",
+//        dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里只有前后端约定好就行
+        locale: 'zh-CN',                     //中文支持
+        pagination: true,                   //是否分页
+        sidePagination: 'server',           //指定服务器端分页
+        pageNumber: 1,                      //初始化加载第一页，默认第一页
+        pageSize: 5,                       //每页的记录行数（*）
+        pageList: [5, 10, 15, 50, 100, 'ALL'],        //可供选择的每页的行数（*）
+//        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        strictSearch: true,                 //搜索
+        showColumns: true,                  //是否显示所有的列
+        showRefresh: true,                  //是否显示刷新按钮
+        minimumCountColumns: 1,             //最少允许的列数
+        clickToSelect: true,                //是否启用点击选中行
+//                height: 500,              //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        uniqueId: "id",               //每一行的唯一标识，一般为主键列
+        showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+        cardView: false,                    //是否显示详细视图
+        detailView: false,                   //是否显示父子表
+        queryParams: QCqueryParams,//请求服务器时所传的参数
+        responseHandler: QCresponseHandler,//请求数据成功后，渲染表格前的方法
+        onClickRow: QConClickRow,
+        columns: [{
+            field: 'id',
+            title: 'Id'
+        }, {
+//            field: 'custcode',
+//            title: '客户号'
+//        }, {
+//            field: 'qualificationnumber',
+//            title: '资质证号码'
+//        }, {
+            field: 'licensename',//
+            title: '证件名称'
+        }, {
+            field: 'qualificationlevel',//
+            title: '资质等级'
+        }, {
+            field: 'licensenumber',//
+            title: '证件号码'
+        }, {
+            field: 'issuedby',//
+            title: '发证机关'
+        }, {
+            field: 'expirydate',//
+            title: '失效日期'
+        }]
+    })
+    //点击行事件
+    function QConClickRow(item, $element) {
+        $('#QCid').val(item.id);
+        $('#QCcustcode').val(item.custcode);
+        $('#QCqualificationnumber').val(item.qualificationnumber);
+        $('#QClicensename').val(item.licensename);
+        $('#QCqualificationlevel').val(item.qualificationlevel);
+        $('#QClicensenumber').val(item.licensenumber);
+        $('#QCissuedby').val(item.issuedby);
+        $('#QCexpirydate').val(item.expirydate);
+        return true;
+    }
+    //请求服务数据时所传参数
+    function QCqueryParams(params) {
+        return {
+            pageSize: params.limit, //每一页的数据行数，默认是上面设置的10(pageSize)
+            pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+        }
+    }
+
+    //请求成功方法
+    function QCresponseHandler(result) {
+        var errCode = result.errCode;//在此做了错误代码的判断
+        if (errCode != 0) {
+            alert("错误代码" + errCode);
+            return;
+        }
+        //如果没有错误则返回数据，渲染表格
+        return {
+            total: result.dataLength, //总页数,前面的key必须为"total"
+            rows: result.rowDatas //行数据，前面的key要与之前设置的dataField的值一致.
+        };
+    };
+
+
+    function QCsave() {
+        $("#LoanCorporateCertificates").attr("action", "/LoanQualificationCertificate");
+        $("#LoanCorporateCertificates").submit();
+    }
+
+    $('#QCdeleteAction').click(function () {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8001/LoanCorporateCertificates/deleteLoanQualificationCertificate?'
+            + 'QCid=' + $('#QCid').val()
+            + '',
+            contentType: "application/json",
+            success: function (data) {
+                $('#QChistoryTable').bootstrapTable("refresh", {url: "http://localhost:8001/LoanCorporateCertificates/getQCHistoryList"});
+                QClicensename.value = "";
+                QCqualificationlevel.value = "";
+                QClicensenumber.value = "";
+                QCissuedby.value = "";
+                QCexpirydate.value = "";
+//                window.location.reload();
+            },
+            error: function () {
+                alert("error")
+            }
+        })
+    });
+</script>
+
+</body>
+</html>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+

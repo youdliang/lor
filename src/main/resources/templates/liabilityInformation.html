@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>负债信息</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link th:href="@{/dist/css/sb-admin-2.css}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+
+    <link th:href="@{/vendor/datepicker/datepicker3.css}" rel="stylesheet" type="text/css">
+
+    <!--bootstrap-table CSS-->
+    <link th:href="@{vendor/bootstrap/css/bootstrap-table.css}" rel="stylesheet" type="text/css">
+
+    <!-- jQuery -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{/dist/js/sb-admin-2.js}"></script>
+
+    <script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+
+    <!--bootstrap-table JavaScript-->
+    <script th:src="@{vendor/bootstrap/js/bootstrap-table.js}"></script>
+
+    <script>
+        $(function () {
+
+//            $("#line_no").blur(function () {
+//                var line_no = $("#line_no").val();
+//                var custcode = $("#custcode").val();
+//                $.ajax({
+//                    type: "POST",
+//                    url: "/documentInfo_CheckLineno",
+//                    contentType: "application/json",
+//                    dataType: "html",
+//                    data: JSON.stringify({
+//                        line_no: line_no.toString(),
+//                        custcode: custcode.toString()
+//                    }),
+//                    success: function (result) {
+//                        if (result ==0){
+//                            $("#checklineno").show();
+////                            $("#line_no").val("额度号必须是贷款申请客户本人的.");
+//                        }else {
+//                            $("#checklineno").hide();
+//                        }
+//                    }
+//                });
+//            });
+
+            $('#loandate').datepicker({
+                format: 'yyyymmdd',
+                weekStart: 1,
+                autoclose: true,
+                todayBtn: 'linked',
+                language: 'zh-CN'
+            }).on('changeDate',function(ev){
+
+            });
+
+            $('#duedate').datepicker({
+                format: 'yyyymmdd',
+                weekStart: 1,
+                autoclose: true,
+                todayBtn: 'linked',
+                language: 'zh-CN'
+            }).on('changeDate',function(ev){
+
+            });
+
+        })
+
+        $(function () {
+            function queryParams(params) {
+                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    //                    limit: params.limit,   //页面大小
+                    //                    offset: params.offset,  //页码
+                    custcode: $("#custcode").val(),
+                    //                    statu: $("#txt_search_statu").val()
+                };
+                return temp;
+            }
+
+            $('#tb_liabilityinfo').bootstrapTable({
+                url: '/liabilityInfo_Search',         //请求后台的URL（*）
+                method: 'post',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: queryParams,//传递参数（*）
+                sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 10,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    checkbox: true
+                }, {
+                    field: 'loanamount',
+                    title: '借款金额'
+                }, {
+                    field: 'balance',
+                    title: '余额'
+                }, {
+                    field: 'creditorname',
+                    title: '债权人名称'
+                }, {
+                    field: 'loandate',
+                    title: '借款日期'
+                },{
+                    field: 'duedate',
+                    title: '到期日'
+                },{
+                    field: 'paymentmethod',
+                    title: '还款方式'
+                },{
+                    field: 'installmentamount',
+                    title: '每期还款金额'
+                },{
+                    field: 'isoverdue',
+                    title: '是否逾期',
+                    formatter:function(value,row,index){
+                        if(value==1){
+                            return "是";
+                        }else if(value==2){
+                            return "否";
+                        }
+                    }
+                },{
+                    field: 'overdueamount',
+                    title: '逾期金额'
+                } ],
+
+                onClickRow:function (row) {
+                    $("#loanamount").val(row.loanamount);
+                    $("#balance").val(row.balance);
+                    $("#creditorname").val(row.creditorname);
+                    $("#loandate").val(row.loandate);
+                    $("#duedate").val(row.duedate);
+                    $("#paymentmethod").val(row.paymentmethod);
+                    $("#installmentamount").val(row.installmentamount);
+                    $("#isoverdue").val(row.isoverdue);
+                    $("#overdueamount").val(row.overdueamount);
+                    $("#memo1").val(row.memo1);
+                }
+
+            });
+
+            $("#btn_add").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/liabilityInfo_add",
+                    dataType: "json",
+                    async: false,
+                    success: function (row) {
+                        $("#loanamount").val(row.loanamount);
+                        $("#balance").val(row.balance);
+                        $("#creditorname").val(row.creditorname);
+                        $("#loandate").val(row.loandate);
+                        $("#duedate").val(row.duedate);
+                        $("#paymentmethod").val(row.paymentmethod);
+                        $("#installmentamount").val(row.installmentamount);
+                        $("#isoverdue").val(row.isoverdue);
+                        $("#overdueamount").val(row.overdueamount);
+                        $("#memo1").val(row.memo1);
+                    }
+                });
+            })
+
+            $('#btn_delete').click(function () {
+                var delete_rows = $('#tb_liabilityinfo').bootstrapTable('getAllSelections');
+                var json = [];
+                for(var i=0;i<delete_rows.length;i++){
+                    json.push(delete_rows[i].creditorname);
+                }
+                if(json == null || json == ""){
+                    alert("请选择要删除的数据行");
+                }else{
+                    $.ajax({
+                        type: "POST",
+                        url: "/deleteLiabilityInfo",
+                        contentType : "application/json",
+                        dataType: "json",
+                        data: JSON.stringify(json),
+                        async: false,
+                        success: function(result){
+                            $('#tb_liabilityinfo').bootstrapTable("refresh",{
+                                silent : true
+                            });
+                            alert(result.message);
+                            $('#btn_add').trigger("click");
+                        },
+                        error : function (result) {
+                            alert(result.message);
+                        }
+                    });
+                }
+            });
+        })
+    </script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <div id="page-wrapper" style="margin-left: 0px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">负债信息</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!--  <form  th:action="@{/app}"  th:object="${apply_entity}" method="post">  -->
+        <form name="actForm" method="post"  th:action="@{/liabilityInfo}" th:object="${liability_entity}" >
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">负债信息</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>借款金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{loanamount}" id="loanamount" name="loanamount" required maxlength="20">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>余额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{balance}" name="balance" required maxlength="20">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="display: none">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>客户号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{custcode}" name="custcode" required maxlength="20">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>债权人名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{creditorname}" id="creditorname" name="creditorname" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>借款日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{loandate}" id="loandate" name="loandate" required maxlength="35">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>到期日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{duedate}" id="duedate" name="duedate" required maxlength="50">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>还款方式：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{paymentmethod}" id="paymentmethod" name="paymentmethod" required maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>每期还款金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="installmentamount" name="installmentamount" th:field="*{installmentamount}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>是否逾期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" th:field="*{isoverdue}" id="isoverdue" name="isoverdue" required>
+                                            <option value=""></option>
+                                            <option value="1">是</option>
+                                            <option value="2">否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>逾期金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="overdueamount" name="overdueamount" th:field="*{overdueamount}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>备注：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <textarea class="form-control" id="memo1" name="memo1" th:field="*{memo1}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+                                    <button type="reset" class="btn btn-primary">重  填</button>
+                                    <button type="submit" id="save" class="btn btn-primary">保  存</button>
+                                </div>
+                                <div class="col-lg-4"></div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">负债信息</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div id="toolbar" class="btn-group">
+                                                <button id="btn_add" type="button" class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                                                </button>
+                                                <button id="btn_edit" type="button" class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                                                </button>
+                                                <button id="btn_delete" type="button" class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                                                </button>
+                                            </div>
+                                            <table id="tb_liabilityinfo"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+
+
+
+
+<!-- /#wrapper -->
+
+
+
+</body>
+
+</html>

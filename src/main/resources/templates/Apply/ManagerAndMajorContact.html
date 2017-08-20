@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<title>高管及主要联系人</title>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <script th:src="@{/vendor/jquery/jquery.min.js}" src="../../static/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}" src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link th:href="@{/dist/css/sb-admin-2.css}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+
+    <link th:href="@{/vendor/datepicker/datepicker3.css}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+
+    <![endif]-->
+    <link href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet"type="text/css"/>
+    <script src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#home" data-toggle="tab">
+            高管及主要联系人
+        </a>
+    </li>
+    <li><a href="javascript:void(0)"  id="saveAction">存储</a></li>
+    <!--<li class="dropdown">-->
+    <!--<a href="#" id="myTabDrop1" class="dropdown-toggle"-->
+    <!--data-toggle="dropdown">test-->
+    <!--<b class="caret"></b>-->
+    <!--</a>-->
+    <!--<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">-->
+    <!--<li><a href="#jmeter" tabindex="-1" data-toggle="tab">test1</a></li>-->
+    <!--<li><a href="#ejb" tabindex="-1" data-toggle="tab">test2</a></li>-->
+    <!--</ul>-->
+    <!--</li>-->
+</ul>
+<div id="page-wrapper"  style="margin-left:0" class="tab-content">
+    <div class="tab-pane fade in active" id="home">
+        <form th:action="@{/danbao}"  th:object="${danbao_entity}" method="post" id="ggjzylxr">
+            <div class="panel panel-default">
+                <div id="collapseTwo" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>关系人类型：</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <select class="form-control" selected="" name="gxlxr_type" required>
+                                        <option disabled selected value></option>
+                                        <option value="1">实际控制人</option>
+                                        <option value="2">董事长</option>
+                                        <option value="3">总经理/主要负责人</option>
+                                        <option value="4">财务负责人</option>
+                                        <option value="5">监事长</option>
+                                        <option value="6">法定代表人</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>姓名：</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control"  name="gxlxr_name" maxlength="30"  required >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>证件类型：</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <select class="form-control" selected=""  name="gxlxx_idType" required >
+                                        <option disabled selected value></option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>证件号码：</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control"  name="gxlxr_idNum" maxlength="18"  required >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<ul id="TableTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#table" data-toggle="tab">
+            新增
+        </a>
+    </li>
+    <li><a href="javascript:void(0)"  id="addAction">存储</a></li>
+
+</ul>
+
+<div id="page-wrapper2"  style="margin-left:0" class="tab-content">
+    <div class="tab-pane fade in active" id="table">
+
+        <div class="box-body">
+            <table id="ggjlxrTable" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Branch</th>
+                    <th>Acct No</th>
+                    <th>Product</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Branch</th>
+                    <th>Acct No</th>
+                    <th>Product</th>
+
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/dist/js/sb-admin-2.js}"></script>
+
+<script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+
+<script >
+    //submit form action
+    $(document).ready(function ()
+    {
+        var myTable= $("#ggjlxrTable").DataTable({
+            serverSide : true,
+            processing: true,
+//                "paging":true,
+//                "bProcessing": false, // 是否显示取数据时的那个等待提示
+//                "bServerSide": true,//这个用来指明是通过服务端来取数据
+            //ajax: 'http://192.1.108.121:8080/DEPOSIT_INFO_SEARCH/getSearchResult?customer_code=100' ,//这个是请求的地址
+            //   ]
+            ajax: {
+                type: "GET",
+                async: false,
+                url: 'http://192.1.108.121:8080/DEPOSIT_INFO_SEARCH/getSearchResult',
+                dataSrc: ''
+            },
+
+
+
+
+            columns: [
+                {data: 'customer_code'},
+                {data: 'customer_full_name'},
+                {data: 'identity_no'}
+
+            ]
+
+        });
+//        $("#ggjlxrTable").DataTable( {
+//            scrollY: 300,
+//            paging: false
+//        } );
+
+        $("#saveAction").click(function () {
+            try
+            {
+                alert("test");
+                $("form").find('[type="submit"]').trigger('click');
+            }
+            catch(e)
+            {
+                Console.log(e.message);
+            }
+        });
+    });
+</script>
+</body>
+
+
+</html>

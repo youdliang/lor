@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:display="http://www.w3.org/1999/xhtml"
+      xmlns:div.display="http://www.w3.org/1999/xhtml" xmlns:row.display="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LOR</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"  href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link th:href="@{/dist/css/sb-admin-2.css}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body style="overflow-y: scroll; overflow-x: scroll">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">LOR</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li id="personal">
+                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> 客户资料(个人)</a>
+                    </li>
+                    <li id="company">
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 客户资料(企业)</span></a>
+                    </li>
+                    <li id="credit">
+                        <a href="#"><i class="fa fa-table fa-fw"></i> 授信</a>
+                    </li>
+                    <li id="use">
+                        <a href="#"><i class="fa fa-edit fa-fw"></i> 使用</a>
+                    </li>
+                    <li id="pledge">
+                    <a href="#"><i class="fa fa-files-o fa-fw"></i> 质押</span></a>
+                    </li>
+                    <li id="guarantee">
+                        <a href="#"><i class="fa fa-usd fa-fw"></i> 保证</span></a>
+                    </li>
+                    <li id="creditInfo">
+                        <a href="#"><i class="fa fa-credit-card-alt fa-fw"></i> 信用</span></a>
+                    </li>
+                    <li id="applyInfo">
+                        <a href="#"><i class="fa fa-info-circle fa-fw"></i> 申请信息-状况</span></a>
+                    </li>
+                    <li id="examination">
+                        <a href="#"><i class="fa fa-legal fa-fw"></i> 审贷会审批(信贷部)</span></a>
+                    </li>
+                    <li id="applySearch">
+                        <a href="#"><i class="fa fa-navicon fa-fw"></i> 贷前(LOR)贷款申请查询</span></a>
+                    </li>
+                    <li id="monitoring">
+                        <a href="#"><i class="fa fa-gear fa-fw"></i> 贷前(LOR)工作流监控</span></a>
+                    </li>
+                    <li id="excelDownld">
+                        <a href="#"><i class="fa fa-file-excel-o fa-fw"></i> 贷前(LOR)下载EXCEL</span></a>
+                    </li>
+                    <li id="changePwd">
+                        <a href="#"><i class="fa fa-user fa-fw"></i> 贷前(LOR)更改密码</span></a>
+                    </li>
+                    <li id="loan">
+                        <a href="#"><i class="fa fa-home fa-fw"></i> 放款</span></a>
+                    </li>
+                    <li id="loanReview">
+                        <a href="#"><i class="fa fa-chain fa-fw"></i> 放款复核</span></a>
+                    </li>
+                    <li id="LoanApplicantGuarantee">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 对外担保</a>
+                    </li>
+                    <li id="print">
+                        <a href="#"><i class="fa fa-print fa-fw"></i> 打印</a>
+                    </li>
+                    <li id="rePerInformation">
+                        <a href="#"><i class="fa fa-linkedin fa-fw"></i> 关联方个人信息</a>
+                    </li>
+                    <li id="coCtrRelaInformation">
+                        <a href="#"><i class="fa fa-info-circle fa-fw"></i> 企业控制关系信息</a>
+                    </li>
+                    <li id="reComInformation">
+                        <a href="#"><i class="fa fa-linkedin-square fa-fw"></i> 关联方企业信息</a>
+                    </li>
+                    <li id="contactInfomation">
+                        <a href="#"><i class="fa fa-mobile fa-fw"></i> 联系信息</a>
+                    </li>
+                    <li id="document">
+                        <a href="#"><i class="fa fa-archive fa-fw"></i> 文档</a>
+                    </li>
+                    <li id="coborrowerInfomation">
+                        <a href="#"><i class="fa fa-male fa-fw"></i> 共同借款人</a>
+                    </li>
+                    <li id="financeInfomation">
+                        <a href="#"><i class="fa fa-money fa-fw"></i> 财务信息</a>
+                    </li>
+                    <li id="liabilityInfomation">
+                        <a href="#"><i class="fa fa-krw fa-fw"></i> 负债信息</a>
+                    </li>
+                    <li id="complianceDepApproval">
+                        <a href="#"><i class="fa fa-check-circle-o fa-fw"></i> 合规部审批-状况</a>
+                    </li>
+                    <li id="LoanCorporateCertificates">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 证件管理</a>
+                    </li>
+                    <li id="LoanCorporateTopExecutives">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 高管信息</a>
+                    </li>
+                    <li id="LoanCorporateCapitalStructure">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 资本构成信息</a>
+                    </li>
+                    <li id="LoanCorporateForeignInvestment">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 对外投资信息</a>
+                    </li>
+                    <li id="LoanCorporateLitigationInfo">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 诉讼信息</a>
+                    </li>
+                    <li id="LoanCorporateMajorIssues">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 大事信息</a>
+                    </li>
+                    <li id="LoanCorporateRepresentative">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 企业法人家族</a>
+                    </li>
+                    <li id="LoanApplicantShareholderInfor">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 股东信息</a>
+                    </li>
+                    <li id="LoanApplicantSpouseNameInfo">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 配偶信息</a>
+                    </li>
+                    <li id="LoanBusinessPersonInfo">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 业务情况</a>
+                    </li>
+
+
+                    <li id="applySearch">
+                        <a href="#"><i class="fa fa-navicon fa-fw"></i> 贷前(LOR)贷款申请查询</span></a>
+                    </li>
+                    <li id="pledgeNew">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 新抵押</a>
+                    </li>
+                    <li id="prenda">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 新质押</a>
+                    </li>
+                    <li id="facility">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 新授信</a>
+                    </li>
+                    <li id="utilization">
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> 新使用</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <!-- Page Content -->
+    <div id="page-wrapper" style="padding-left: 0px;">
+        <!-- <div class="container-fluid"> -->
+        <iframe id="iframeMapping" src="" frameborder="0" height="640" width="1200" style="transform: scale(0.93); transform-origin: 0% 0%;"></iframe>
+        <!-- </div> -->
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/dist/js/sb-admin-2.js"></script>
+
+<script type="text/javascript">
+
+    //    startInit('iframeMapping', 560);
+    //    var browserVersion = window.navigator.userAgent.toUpperCase();
+    // var isOpera = browserVersion.indexOf("OPERA") > -1 ? true : false;
+    // var isFireFox = browserVersion.indexOf("FIREFOX") > -1 ? true : false;
+    // var isChrome = browserVersion.indexOf("CHROME") > -1 ? true : false;
+    // var isSafari = browserVersion.indexOf("SAFARI") > -1 ? true : false;
+    // var isIE = (!!window.ActiveXObject || "ActiveXObject" in window);
+    // var isIE9More = (! -[1, ] == false);
+    // function reinitIframe(iframeId, minHeight) {
+    //     try {
+
+    //         var iframe = document.getElementById(iframeId);
+    //         var bHeight = 0;
+    //         if (isChrome == false && isSafari == false)
+    //             bHeight = iframe.contentWindow.document.body.scrollHeight;
+
+    //         var dHeight = 0;
+    //         if (isFireFox == true)
+    //             dHeight = iframe.contentWindow.document.documentElement.offsetHeight + 2;
+    //         else if (isIE == false && isOpera == false)
+    //             dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+    //         else if (isIE == true && isIE9More) {//ie9+
+    //             var heightDeviation = bHeight - eval("window.IE9MoreRealHeight" + iframeId);
+    //             if (heightDeviation == 0) {
+    //                 bHeight += 3;
+    //             } else if (heightDeviation != 3) {
+    //                 eval("window.IE9MoreRealHeight" + iframeId + "=" + bHeight);
+    //                 bHeight += 3;
+    //             }
+    //         }
+    //         else//ie[6-8]、OPERA
+    //             bHeight += 3;
+
+    //         var height = Math.max(bHeight, dHeight);
+    //         alert(height);
+    //         if (height < minHeight) height = minHeight;
+    //         iframe.style.height = height + "px";
+    //     } catch (ex) { }
+    // }
+    // function startInit(iframeId, minHeight) {
+    //     eval("window.IE9MoreRealHeight" + iframeId + "=0");
+    //     window.setInterval("reinitIframe('" + iframeId + "'," + minHeight + ")", 100);
+    // }
+    $('#personal').bind('click',function(){
+        $('#iframeMapping').attr('src','/customerInfo');
+    });
+
+    $('#company').bind('click',function(){
+        $('#iframeMapping').attr('src','../apply');
+    });
+
+    $('#credit').bind('click',function(){
+        $('#iframeMapping').attr('src','/creditOne/new');
+    });
+
+    $('#use').bind('click',function(){
+        $('#iframeMapping').attr('src','/UsageInfo');
+    });
+
+    $('#pledge').bind('click',function(){
+        $('#iframeMapping').attr('src','/Pledge/getOne');
+    });
+
+    $('#guarantee').bind('click',function(){
+        $('#iframeMapping').attr('src','/guarantee?custcode=188688000007');
+    });
+
+    $('#creditInfo').bind('click',function(){
+        $('#iframeMapping').attr('src','/creditInfo');
+    });
+    $('#applyInfo').bind('click',function(){
+        $('#iframeMapping').attr('src','/applyInfo');
+    });
+    $('#examination').bind('click',function(){
+        $('#iframeMapping').attr('src','/examination');
+    });
+    $('#applySearch').bind('click',function(){
+        $('#iframeMapping').attr('src','/newNavi');
+    });
+    $('#monitoring').bind('click',function(){
+        $('#iframeMapping').attr('src','/monitoring');
+    });
+    $('#excelDownld').bind('click',function(){
+        $('#iframeMapping').attr('src','/excelDownld');
+    });
+    $('#changePwd').bind('click',function(){
+        $('#iframeMapping').attr('src','/changePwd');
+    });
+    $('#loan').bind('click',function(){
+        $('#iframeMapping').attr('src','/loan');
+    });
+    $('#loanReview').bind('click',function(){
+        $('#iframeMapping').attr('src','/loanReview');
+    });
+    $('#LoanApplicantGuarantee').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanApplicantGuarantee');
+    });
+    $('#print').bind('click',function(){
+        $('#iframeMapping').attr('src','/Print/print');
+    });
+    $('#rePerInformation').bind('click',function(){
+        $('#iframeMapping').attr('src','/rePerInfo');
+    });
+    $('#coCtrRelaInformation').bind('click',function(){
+        $('#iframeMapping').attr('src','/coCtrRelaInfo');
+    });
+    $('#reComInformation').bind('click',function(){
+        $('#iframeMapping').attr('src','/reComInfo');
+    });
+    $('#contactInfomation').bind('click',function(){
+        $('#iframeMapping').attr('src','/contactInfo');
+    });
+    $('#document').bind('click',function(){
+        $('#iframeMapping').attr('src','/docInfo');
+    });
+    $('#coborrowerInfomation').bind('click',function(){
+        $('#iframeMapping').attr('src','/coborrowerInfo');
+    });
+    $('#financeInfomation').bind('click',function(){
+        $('#iframeMapping').attr('src','/financeInfo');
+    });
+    $('#liabilityInfomation').bind('click',function(){
+        $('#iframeMapping').attr('src','/liabilityInfo');
+    });
+    $('#complianceDepApproval').bind('click',function(){
+        $('#iframeMapping').attr('src','/compDepApprovalInfo');
+    });
+    $('#LoanCorporateCertificates').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanCorporateCertificates');
+    });
+    $('#LoanCorporateTopExecutives').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanCorporateTopExecutives');
+    });
+    $('#LoanCorporateCapitalStructure').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanCorporateCapitalStructure');
+    });
+    $('#LoanCorporateForeignInvestment').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanCorporateForeignInvestment');
+    });
+    $('#LoanCorporateLitigationInfo').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanCorporateLitigationInfo');
+    });
+    $('#LoanCorporateMajorIssues').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanCorporateMajorIssues');
+    });
+    $('#LoanCorporateRepresentative').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanCorporateRepresentative');
+    });
+    $('#LoanApplicantShareholderInfor').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanApplicantShareholderInfor');
+    });
+    $('#LoanApplicantSpouseNameInfo').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanApplicantSpouseNameInfo');
+    });
+    $('#LoanBusinessPersonInfo').bind('click',function(){
+        $('#iframeMapping').attr('src','/LoanBusinessPersonInfo');
+    });
+
+
+    $('#applySearch').bind('click',function(){
+        $('#iframeMapping').attr('src','/applySearch');
+    });
+    $('#pledgeNew').bind('click',function(){
+        $('#iframeMapping').attr('src','/PledgeNewList');
+    });
+    $('#prenda').bind('click',function(){
+        $('#iframeMapping').attr('src','/PrendaList');
+    });
+    $('#facility').bind('click',function(){
+        $('#iframeMapping').attr('src','/FacilityList');
+    });
+    $('#utilization').bind('click',function(){
+        $('#iframeMapping').attr('src','/UtilizationList');
+    });
+</script>
+
+
+</body>
+
+</html>

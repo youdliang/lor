@@ -1,0 +1,17 @@
+.lorHead
+{
+
+}
+
+.lorHeadTitle
+{
+    float: left;
+    width: 50%;
+}
+
+.lorButtonLeft
+{
+    float: right;
+    vertical-align: middle;
+    width: 50%;
+}

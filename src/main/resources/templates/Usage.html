@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LOR</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+	
+	<!-- Select2 -->
+	<link rel="stylesheet" href="../vendor/select2/select2.min.css">
+	
+	<!-- bootstrap datepicker -->
+	<link rel="stylesheet" href="../vendor/datepicker/datepicker3.css">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<style type="text/css">
+	.row{margin-bottom:5px}
+	.col-md-4{padding-right:0px}
+	.col-md-8{padding-left:5px}
+	label{margin-top:5px}
+	</style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="page-wrapper" style="margin-left:0px">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">贷款使用</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <!-- Main content -->
+			<div class="row" style="border: 2px solid #fff; padding-top:10px">
+				<form action="/UsageInfo/Save" method="post" onsubmit="return checksubmit()">
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">贷款编号：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" name="Loan_RefNo" value="LN00000089961" disabled>
+							</div>
+						</div>
+						<div class="col-lg-5">
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">额度号：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" name="Line_No" value="00001" disabled>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">额度描述：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" th:value="${UsageInfo.Line_desc}" name="Line_desc" disabled>
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">额度币种：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="Line_CCY" disabled>
+								<option>RMB</option>
+								<option>USD</option>
+								<option>SGD</option>
+								<option>UKD</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-5">
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">额度金额：</label>
+							<div class="col-md-8">				
+							<input type="number" step="0.01" class="form-control" th:value="${UsageInfo.Line_AMT}" name="Line_AMT" disabled>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">可用额度金额：</label>
+							<div class="col-md-8">				
+							<input type="number" step="0.01" class="form-control" th:value="${UsageInfo.AvaLine_AMT}" name="AvaLine_AMT" disabled>
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">放款日期：</label>
+							<div class="col-md-8">											
+								<div class="input-group date">
+								  <div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								  </div>
+								  <input type="date" class="form-control pull-right datepicker"  name="DrawDate">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">信贷员分析日期：</label>
+							<div class="col-md-8">											
+								<div class="input-group date">
+								  <div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								  </div>
+								  <input type="date" class="form-control pull-right datepicker" name="Analysis_Date">
+								</div>
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">方案类型：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="Prod_Type" required="required">
+									<option th:each="prod:${UsageInfo.Prod_Type}" th:value="${prod}" th:text="${prod}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-5">
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">放款币种：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="Draw_CCY">
+								<option>RMB</option>
+								<option>USD</option>
+								<option>SGD</option>
+								<option>UKD</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">放款金额：</label>
+							<div class="col-md-8">				
+							<input type="number" step="0.01" class="form-control" required="required" name="Draw_AMT">
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">利率类型：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="Rate_Type" required="required">
+								<option>D5-6.1500000</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">年利率(%)：</label>
+							<div class="col-md-8">				
+							<input type="number" step="0.01" class="form-control" name="Rate" disabled>
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">年利率调幅值(%)：</label>
+							<div class="col-md-8">				
+							<input type="number" step="0.01" class="form-control" name="RateSpread" disabled>
+							</div>
+						</div>
+						<div class="col-lg-5" style="overflow:true">
+							<label class="col-md-5">利率调幅百分比(%)：</label>
+							<div class="col-md-7" style="margin-left:-45px;">				
+							<input type="number" step="0.01" class="form-control" name="RatePercent">
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">调整后年利率(%)：</label>
+							<div class="col-md-8">				
+							<input type="number" step="0.01" class="form-control" name="SchemaRate" disabled>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">还款方式：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="Repayment_Meth" required="required">
+								<option>等额本息</option>
+								<option>等额本金</option>
+								<option>一次性还本分次付息</option>
+								<option>一次性还本付息</option>
+								<option>自由还款</option>
+								</select>
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">期数：</label>
+							<div class="col-md-8">				
+							<input type="number" class="form-control" name="Tenor" required="required">
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">固定浮动标志：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="Fix_Flag" required="required">
+								<option>固定</option>
+								<option>浮动</option>								
+								</select>
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">还款周期：</label>
+							<div class="col-md-3" style="padding:0px;margin-left:5px">				
+							<input type="number" class="form-control" name="Pay_Freq" required="required">
+							</div>
+							<div class="col-md-3">				
+								<select class="form-control select2" name="Pay_Per" required="required">
+								<option selected="selected">月</option>
+								<option>年</option>
+								<option>日</option>								
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">首次还款日：</label>
+							<div class="col-md-8">											
+								<div class="input-group date">
+								  <div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								  </div>
+								  <input type="text" class="form-control pull-right datepicker"  name="FirstPayDate" required="required">
+								</div>
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">抵押担保方式：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="CollFlag" disabled required="required">
+								<option>抵押</option>
+								<option>质押</option>
+								<option>抵押+质押</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">文档标示：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="DocFlag" required="required">
+								<option th:each="docFlag:${UsageInfo.docFlag}" th:value="${docFlag}" th:text="${docFlag}">未完成</option>
+								</select>
+							</div>
+						</div>		
+					</div>
+				
+					<div class="row">
+						<div class="col-lg-2">
+						<label class="col-md-10">贷款投向</label>
+						</div>
+						<div class="col-lg-8" style="margin-left:-30px">
+							<div class="col-md-3" style="padding:0px">
+								<div class="col-sm-2" style="padding:0px">
+								<label>门类</label>
+								</div>
+								<div class="col-sm-10"> 
+									<select class="form-control select2" name="DircFlag1">
+									<option>K.房地产</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3" style="padding:0px">
+								<div class="col-sm-2" style="padding:0px">
+								<label>大类</label>
+								</div>
+								<div class="col-sm-10"> 
+									<select class="form-control select2" name="DircFlag2">
+									<option>72.房地产开发</option>
+									
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3" style="padding:0px">
+								<div class="col-sm-2" style="padding:0px">
+								<label>中类</label>
+								</div>
+								<div class="col-sm-10"> 
+									<select class="form-control select2" name="DircFlag3">
+									<option>721.房地产开发</option>									
+									</select>
+								</div>
+							</div>
+							<div class="col-md-3" style="padding:0px">
+								<div class="col-sm-2" style="padding:0px">
+								<label>小类</label>
+								</div>
+								<div class="col-sm-10"> 
+									<select class="form-control select2" name="DircFlag4">
+									<option>7210.房地产开发经营</option>
+									
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">贷款投向说明：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" maxlength="50" name="DircDesc">
+							</div>
+						</div>
+						<div class="col-lg-5">
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">[微]贷款频次：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="Loan_Freq">
+								<option>第一次贷款</option>
+								<option>重复贷款</option>
+								<option>并行贷款</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">[微]产品：</label>
+							<div class="col-md-8">				
+								<select class="form-control select2" name="Mic_Prod">
+								<option>产品1</option>
+								
+								</select>
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4" style="padding-right:0px">教育贷款优惠年数：</label>
+							<div class="col-md-8">				
+							<input type="number"  class="form-control" name="Edu_Year">
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">保证金：</label>
+							<div class="col-md-8">				
+							<input type="number" step="0.01" class="form-control" name="Margin_AMT">
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">手续费类型：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" name="Charge_Type" maxlength="20">
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">手续费总金额：</label>
+							<div class="col-md-8">				
+							<input type="number" step="0.01" class="form-control" name="Charge_AMT">
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">手续费支付日：</label>
+							<div class="col-md-8">										
+								<div class="input-group date">
+								  <div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								  </div>
+								  <input type="date" class="form-control pull-right datepicker"  name="Charge_Date">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<label class="col-md-3">客户经理：</label>
+							<div class="col-md-9" style="margin-left:-30px">
+								<label class="col-sm-2" style="padding: 0px">代码：</label>
+								<div class="col-sm-3" style="padding: 0px;margin-left:-10px">				
+								<input type="text" class="form-control" name="Account_MNG" required="required">
+								</div>
+								<button name="btn_ACMNG" class="col-sm-2 btn-default" style="padding: 0px;margin:5px">查询</button>
+								<label class="col-sm-2" style="padding: 0px">名称：</label>
+								<label class="col-sm-3" style="padding: 0px; margin-left:-10px" name="Account_MNGName" id="Account_MNGName">A001</label>
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">借款合同号：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" name="Contract_Symbol" maxlength="60">
+							</div>
+						</div>
+						<div class="col-lg-5">
+							
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4" style="padding-right:0px">借款合同签订日期：</label>
+							<div class="col-md-8">				
+								<div class="input-group date">
+								  <div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								  </div>
+								  <input type="date" class="form-control pull-right datepicker"  name="Sign_Date">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">入款户名：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" name="InAcc_Name" maxlength="50">
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">入款账号：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" name="InAcc_No" maxlength="50">
+							</div>
+						</div>		
+					</div>
+					<div class="row">
+						<div class="col-lg-5">
+							<label class="col-md-4">扣款户名：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" name="OutAcc_Name" maxlength="50">
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<label class="col-md-4">扣款账号：</label>
+							<div class="col-md-8">				
+							<input type="text" class="form-control" Name="OutAcc_No" maxlength="50">
+							</div>
+						</div>		
+					</div>
+					<div class="row" style="margin:20px">
+						<div class="col-lg-3">
+						</div>
+						<div  class="col-lg-2">
+						<input type="submit" class="btn btn-block btn-primary" value="保  存" onclick=""/>
+						</div>
+						<div class="col-lg-1">
+						</div>
+						<div  class="col-lg-2">
+						<input type="submit" class="btn btn-block btn-default" value="取  消" onclick=""/>
+						</div>
+						 <div class="col-lg-3">
+						</div>
+					</div>
+				</form>
+			</div>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+	
+	<!-- Select2 -->
+	<script src="../vendor/select2/select2.full.min.js"></script>
+	
+	<!-- bootstrap datepicker -->
+	<script src="../vendor/datepicker/bootstrap-datepicker.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <script src="../vendor/morrisjs/morris.min.js"></script>
+    <script src="../data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+	
+	
+
+	<!-- Page script -->
+	<script>
+	  $(function () {
+		//Initialize Select2 Elements
+		$(".select2").select2();
+		
+		 //Date picker
+		$('.datepicker').datepicker({
+		  autoclose: true
+		});
+		});
+		
+		
+	function checksubmit(){
+	
+	}
+
+	function fillName(name) {
+
+	    $(Account_MNGName).val(name);
+    }
+	</script>
+</body>
+
+</html>

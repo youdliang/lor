@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>使用页面</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- MetisMenu CSS -->
+	<link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+
+	<!-- Custom Fonts -->
+	<link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<!-- Datepicker CSS -->
+	<link th:href="@{/vendor/datepicker/datepicker3.css}" rel="stylesheet" type="text/css">
+
+	<!-- BootstrapTables CSS -->
+	<link href="/vendor/bootstrap-table/css/bootstrap-table.css" rel="stylesheet">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style type="text/css">
+	.row{margin-bottom:5px}
+	.col-md-4{padding-right:0px}
+	.col-md-8{padding-left:5px}
+	label{margin-top:5px}
+	</style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div id="page-wrapper" style="margin-left:0px">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">使用</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <!-- Main content -->
+			<form th:action="@{/UtilizationList}"  th:object="${utilization_entity}" method="post" >
+				<div class="panel-group" id="accordion">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">使用</a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<div class="row">
+									<!--客户号custcod-->
+									<div class="col-lg-12">
+										<input class="form-control" type="hidden" name="custcod" th:field="*{custcod}">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">贷款编号：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" id="loanref" name="loanref" th:field="*{loanref}" disabled>
+										</div>
+									</div>
+									<div class="col-lg-5">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">额度号：</label>
+										<div class="col-md-8">
+											<select class="form-control select2" name="lineno" th:field="*{lineno}">
+												<option value="">-</option>
+												<option th:each="linenoList:${utilization_info.linenoList}" th:value="${linenoList.LINENO}" th:text="${linenoList.LINENO+'-'+linenoList.LINEDESC}"></option>
+											</select>
+											<div th:if="${#fields.hasErrors('lineno')}" th:errors="*{lineno}" class="alert alert-danger">
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">额度描述：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" th:field="*{linedesc}" id="linedesc" name="linedesc" disabled>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">额度币种：</label>
+										<div class="col-md-8">
+											<select class="form-control select2" id="lineccy" name="lineccy" th:field="*{lineccy}" disabled>
+												<option value="">-</option>
+												<option th:each="lineccy:${utilization_info.ccyList}" th:value="${lineccy.CCY}" th:text="${lineccy.CCY}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-5">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">额度金额：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" th:field="*{lineamt}" id="lineamt" name="lineamt" disabled>
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">可用额度金额：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" th:field="*{avliamt}" id="avliamt" name="avliamt" disabled>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">放款日期：</label>
+										<div class="col-md-8">
+											<input class="form-control" name="drawdate" th:field="*{drawdate}">
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">信贷员分析日期：</label>
+										<div class="col-md-8">
+											<input class="form-control" name="anndate" th:field="*{anndate}">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">方案类型：</label>
+										<div class="col-md-8">
+											<select class="form-control select2" name="schetype" th:field="*{schetype}">
+												<option value="">-</option>
+												<option th:each="schetype:${utilization_info.fanganList}" th:value="${schetype.SCHETYP}" th:text="${schetype.SCHEDES}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-5">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">放款币种：</label>
+										<div class="col-md-8">
+											<select class="form-control select2" name="drawccy" th:field="*{drawccy}">
+												<option value="">-</option>
+												<option th:each="drawccy:${utilization_info.ccyList}" th:value="${drawccy.CCY}" th:text="${drawccy.CCY}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">放款金额：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" th:field="*{drawamt}" name="drawamt">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">利率类型：</label>
+										<div class="col-md-8">
+											<select class="form-control select2" name="ratetype" th:field="*{ratetype}">
+												<option value="">-</option>
+												<option th:each="ratetypeList:${ratetype_info}" th:value="${ratetypeList.RATETYP}" th:text="${ratetypeList.RATETYP+'-'+ratetypeList.INTRTPA}"></option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">年利率(%)：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" th:field="*{rate}" id="rate" name="rate" disabled>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">年利率调幅值(%)：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" th:field="*{spread}" name="spread">
+										</div>
+									</div>
+									<div class="col-lg-5" style="overflow:true">
+										<label class="col-md-5">利率调幅百分比(%)：</label>
+										<div class="col-md-7" style="margin-left:-45px;">
+											<input type="text" class="form-control" th:field="*{percent}" name="percent">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-3">
+										<label class="col-md-4">调整后年利率(%)：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" th:field="*{schemarate}" id="schemarate" name="schemarate" disabled>
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<label class="col-md-4">逾期利率(%)：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" th:field="*{overdurate}" name="overdurate" >
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<label class="col-md-4">还款方式：</label>
+										<div class="col-md-8">
+											<select class="form-control" selected="" th:field="*{paymentmethod}" name="paymentmethod">
+												<option value="">-</option>
+												<option value="1">等额本息</option>
+												<option value="2">等额本金</option>
+												<option value="3">一次还本分次付息</option>
+												<option value="4">一次性还本付息</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">期数：</label>
+										<div class="col-md-8">
+											<input type="number" class="form-control" name="tenor" th:field="*{tenor}">
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">固定浮动标志：</label>
+										<div class="col-md-8">
+											<select class="form-control select2" name="fixflag" th:field="*{fixflag}">
+												<option value="">-</option>
+												<option value="F">固定</option>
+												<option value="V">浮动</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">还款周期：</label>
+										<div class="col-md-3" style="padding:0px;margin-left:5px">
+											<input type="number" class="form-control" name="payfreq" th:field="*{payfreq}">
+										</div>
+										<div class="col-md-3">
+											<select class="form-control select2" name="payper" th:field="*{payper}">
+												<option value="">-</option>
+												<option value="M">月</option>
+												<option value="Y">年</option>
+												<option value="D">日</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">首次还款日：</label>
+										<div class="col-md-8">
+											<input class="form-control" name="firstpaydate" th:field="*{firstpaydate}">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">抵押担保方式：</label>
+										<div class="col-md-8">
+											<select class="form-control select2" name="collflag" th:field="*{collflag}">
+												<option value="">-</option>
+												<option value="1">信用</option>
+												<option value="2">保证</option>
+												<option value="3">抵押</option>
+												<option value="4">质押</option>
+												<option value="5">抵押+质押</option>
+												<option value="6">抵押+保证</option>
+												<option value="7">质押+保证</option>
+												<option value="8">抵押+质押+保证</option>
+												<option value="9">全额保证金</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">文档标示：</label>
+										<div class="col-md-8">
+											<select class="form-control" selected="" th:field="*{docflag}" name="docflag">
+												<option value="">-</option>
+												<option th:each="docflag:${utilization_info.biaoshiList}" th:value="${docflag.CONDINDFLAG}" th:text="${docflag.FLAGTEXT}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-2">
+										<label class="col-md-10">贷款投向</label>
+									</div>
+									<div class="col-lg-8" style="margin-left:-30px">
+										<div class="col-md-3" style="padding:0px">
+											<div class="col-sm-2" style="padding:0px">
+												<label>门类</label>
+											</div>
+											<div class="col-sm-10">
+												<select class="form-control" th:field="*{dircflag1}" name="dircflag1">
+													<option value="">-</option>
+													<option th:each="dircflag1List:${utilization_info.meileiList}" th:value="${dircflag1List.MENLEI}" th:text="${dircflag1List.LEIBIEMINGCHENG}"></option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3" style="padding:0px">
+											<div class="col-sm-2" style="padding:0px">
+												<label>大类</label>
+											</div>
+											<div class="col-sm-10">
+												<select class="form-control" selected="" th:field="*{dircflag2}" name="dircflag2">
+													<option value="">-</option>
+													<option th:each="dircflag2List:${dalei_info}" th:value="${dircflag2List.DALEI}" th:text="${dircflag2List.LEIBIEMINGCHENG}"></option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3" style="padding:0px">
+											<div class="col-sm-2" style="padding:0px">
+												<label>中类</label>
+											</div>
+											<div class="col-sm-10">
+												<select class="form-control" selected="" th:field="*{dircflag3}" name="dircflag3">
+													<option value="">-</option>
+													<option th:each="dircflag3List:${zhonglei_info}" th:value="${dircflag3List.ZHONGLEI}" th:text="${dircflag3List.LEIBIEMINGCHENG}"></option>
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3" style="padding:0px">
+											<div class="col-sm-2" style="padding:0px">
+												<label>小类</label>
+											</div>
+											<div class="col-sm-10">
+												<select class="form-control" selected="" th:field="*{dircflag4}" name="dircflag4">
+													<option value="">-</option>
+													<option th:each="dircflag4List:${xiaolei_info}" th:value="${dircflag4List.XIAOLEI}" th:text="${dircflag4List.LEIBIEMINGCHENG}"></option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">贷款投向说明：</label>
+										<div class="col-md-8">
+											<input class="form-control" name="dircdesc" th:field="*{dircdesc}">
+										</div>
+									</div>
+									<div class="col-lg-5">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">保证金：</label>
+										<div class="col-md-8">
+											<input type="number" step="0.01" class="form-control" name="marginamt" th:field="*{marginamt}">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">顾问费类型：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="chgtype" th:field="*{chgtype}">
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">顾问费总金额：</label>
+										<div class="col-md-8">
+											<input type="number" step="0.01" class="form-control" name="chgamt" th:field="*{chgamt}">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">顾问费支付日：</label>
+										<div class="col-md-8">
+											<input class="form-control" name="chgdate" th:field="*{chgdate}">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<label class="col-md-3">客户经理：</label>
+										<div class="col-md-9" style="margin-left:-30px">
+											<label class="col-sm-2" style="padding: 0px">代码：</label>
+											<div class="col-sm-3" style="padding: 0px;margin-left:-10px">
+												<input type="text" class="form-control" name="accoffic" th:field="*{accoffic}">
+											</div>
+											<button id="btn_query" type="button" class="col-sm-2 btn-primary"
+													style="padding: 0px;margin:5px">查询
+											</button>
+											<label class="col-sm-2" style="padding: 0px">名称：</label>
+											<div class="col-sm-3" style="padding: 0px;margin-left:-10px">
+												<input type="text" class="form-control" name="accofname" th:field="*{accofname}">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">借款合同号：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="contractsymbol" th:field="*{contractsymbol}">
+										</div>
+									</div>
+									<div class="col-lg-5">
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4" style="padding-right:0px">借款合同签订日期：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="signeddate" th:field="*{signeddate}">
+										</div>
+									</div>
+									<div class="col-lg-5">
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">入款户名：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="inaccname" th:field="*{inaccname}">
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">入款账号：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="inaccno" th:field="*{inaccno}">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<label class="col-md-4">扣款户名：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="outacname" th:field="*{outacname}">
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<label class="col-md-4">扣款账号：</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="outaccno" th:field="*{outaccno}">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4"></div>
+					<div class="col-lg-4" align="center">
+						<button  id="btn_delete" type="button" class="btn btn-danger">删  除</button>
+						<button id="btn_submit" type="submit" class="btn btn-primary">保  存</button>
+					</div>
+					<div class="col-lg-4"></div>
+				</div>
+			</form>
+			<div id="Table" class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapse20">使用表格信息</a>
+					</h4>
+				</div>
+				<div id="collapse20" class="panel-collapse collapse in">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<div id="toolbar" class="btn-group">
+									<button id="btn_add" type="button"
+											class="btn btn-sm btn-primary">
+										<span class="fa fa-plus" aria-hidden="true"></span>新增
+									</button>
+								</div>
+								<table id="UtilizationTable"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+	<!-- jQuery -->
+	<script src="/vendor/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="/vendor/metisMenu/metisMenu.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="/dist/js/sb-admin-2.js"></script>
+
+	<!-- Datepicker JavaScript -->
+	<script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+
+	<!-- BootstrapTables JavaScript -->
+	<script src="/vendor/bootstrap-table/bootstrap-table.js"></script>
+	<script src="/vendor/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+
+	<!-- PledgeTable JavaScript -->
+	<script src="/js/own/utilizationTable.js"></script>
+
+</body>
+
+</html>

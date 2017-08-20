@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>授信页面</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Datepicker CSS -->
+    <link th:href="@{/vendor/datepicker/datepicker3.css}" rel="stylesheet" type="text/css">
+
+    <!-- BootstrapTables CSS -->
+    <link href="/vendor/bootstrap-table/css/bootstrap-table.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <div id="page-wrapper"  style="margin-left:0">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">授信</a></li>
+                    <li><a href="javascript:void(0)" id="a_shifang" data-toggle="modal" data-target="#myModal">释放</a></li>
+                </ul>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <form th:action="@{/FacilityList}"  th:object="${facility_entity}" method="post" >
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">授信</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <!--客户号custcod-->
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="hidden" name="custcod" th:field="*{custcod}">
+                                    <input class="form-control" type="hidden" name="appflag" th:field="*{appflag}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>贷款类型：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{prodtype}" name="prodtype">
+                                            <option value="">-</option>
+                                            <option value="1">直接融资租赁</option>
+                                            <option value="2">回租融资租赁</option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('prodtype')}" th:errors="*{prodtype}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>用途：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="checkbox-inline" type="checkbox" name="haveloan" value="1" th:field="*{haveloan}">贷款
+                                        <input class="checkbox-inline" type="checkbox" name="haveacceptance" value="1" th:field="*{haveacceptance}">承兑
+                                        <input class="checkbox-inline" type="checkbox" name="havelg" value="1" th:field="*{havelg}">保函
+                                        <input class="checkbox-inline" type="checkbox" name="havelc" value="1" th:field="*{havelc}">信用证
+                                        <input class="checkbox-inline" type="checkbox" name="haveotherloan" value="1" th:field="*{haveotherloan}">其他或未知
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>额度号：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="lineno" th:field="*{lineno}" disabled>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>额度描述：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="linedesc" th:field="*{linedesc}" >
+                                        <div th:if="*{#fields.hasErrors('linedesc')}" th:errors="*{linedesc}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>额度等级：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{linegrade}" name="linegrade">
+                                            <option value="">-</option>
+                                            <option th:each="linegrade:${facility_info.linegradeList}" th:value="${linegrade.LINERRFLAG}" th:text="${linegrade.FLAGTEXT}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('linegrade')}" th:errors="*{linegrade}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>额度状况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{linestatus}" name="linestatus" disabled>
+                                            <option value="1">等候</option>
+                                            <option value="2">正常</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>币种：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{lineccy}" name="lineccy">
+                                            <option value="">-</option>
+                                            <option th:each="lineccy:${facility_info.ccyList}" th:value="${lineccy.CCY}" th:text="${lineccy.CCY}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('lineccy')}" th:errors="*{lineccy}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>额度金额：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="lineamt" th:field="*{lineamt}" >
+                                        <div th:if="*{#fields.hasErrors('lineamt')}" th:errors="*{lineamt}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>已用额度：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="usedamt" th:field="*{usedamt}" disabled>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>余额：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="osamt" th:field="*{osamt}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>冻结金额：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="holdamt" th:field="*{holdamt}" disabled>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>可用额度：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="avliamt" th:field="*{avliamt}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>抵押担保方式：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{bondflag}" name="bondflag">
+                                            <option value="">-</option>
+                                            <option value="1">信用</option>
+                                            <option value="2">保证</option>
+                                            <option value="3">抵押</option>
+                                            <option value="4">质押</option>
+                                            <option value="5">抵押+质押</option>
+                                            <option value="6">抵押+保证</option>
+                                            <option value="7">质押+保证</option>
+                                            <option value="8">抵押+质押+保证</option>
+                                            <option value="9">保证金</option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('bondflag')}" th:errors="*{bondflag}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>文档标识：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{docflag}" name="docflag">
+                                            <option value="">-</option>
+                                            <option th:each="docflag:${facility_info.flagList}" th:value="${docflag.CONDINDFLAG}" th:text="${docflag.FLAGTEXT}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('docflag')}" th:errors="*{docflag}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>创建日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="createdate" th:field="*{createdate}">
+                                        <div th:if="${#fields.hasErrors('createdate')}" th:errors="*{createdate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>循环：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{revolflag}" name="revolflag">
+                                            <option value="">-</option>
+                                            <option value="Y">Y</option>
+                                            <option value="N">N</option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('revolflag')}" th:errors="*{revolflag}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>到期日期：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="expirydate" th:field="*{expirydate}">
+                                        <div th:if="${#fields.hasErrors('expirydate')}" th:errors="*{expirydate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>国家风险：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select class="form-control" selected="" th:field="*{countryrisk}" name="countryrisk">
+                                            <option value="">-</option>
+                                            <option th:each="countryrisk:${facility_info.countryList}" th:value="${countryrisk.COUNTRY}" th:text="${countryrisk.COUNNAM}"></option>
+                                        </select>
+                                        <div th:if="${#fields.hasErrors('countryrisk')}" th:errors="*{countryrisk}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>目的：</label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="remark" th:field="*{remark}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4" align="center">
+                <button  id="btn_delete" type="button" class="btn btn-danger">删  除</button>
+                <button id="btn_submit" type="submit" class="btn btn-primary">保  存</button>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+        </form>
+
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 800px;height: 450px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <ul id="myshifang" class="nav nav-tabs">
+                            <li class="active"><a href="#home" data-toggle="tab">额度释放</a></li>
+                            <li><a href="javascript:void(0)" id="a_baocun">保存</a></li>
+                        </ul>
+                    </div>
+                    <div class="modal-body">
+                        <div id="shifangxinxi" class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse21">额度释放信息</a>
+                                </h4>
+                            </div>
+                            <div id="collapse21" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-3">
+                                                <label>额度号：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input class="form-control" id="linenoNew"  disabled>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>额度描述：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input class="form-control" id="linedescNew">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-3">
+                                                <label>额度等级：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <select class="form-control" selected="" id="linegradeNew">
+                                                    <option value="">-</option>
+                                                    <option th:each="linegrade:${facility_info.linegradeList}" th:value="${linegrade.LINERRFLAG}" th:text="${linegrade.FLAGTEXT}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>额度状况：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <select class="form-control" selected="" id="linestatusNew" disabled>
+                                                    <option value="1">等候</option>
+                                                    <option value="2">正常</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-3">
+                                                <label>币种：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <select class="form-control" selected="" id="lineccyNew">
+                                                    <option value="">-</option>
+                                                    <option th:each="lineccy:${facility_info.ccyList}" th:value="${lineccy.CCY}" th:text="${lineccy.CCY}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>额度金额：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input class="form-control" id="lineamtNew">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-3">
+                                                <label>已用额度：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input class="form-control" id="usedamtNew" disabled>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>余额：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input class="form-control" id="osamtNew" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-3">
+                                                <label>冻结金额：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input class="form-control" id="holdamtNew" disabled>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>可用额度：</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input class="form-control" id="avliamtNew" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-3">
+                                                <label>释放金额：</label>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <input class="form-control" id="releaseamt">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <div id="Table" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse20">授信表格信息</a>
+                </h4>
+            </div>
+            <div id="collapse20" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="toolbar" class="btn-group">
+                                <button id="btn_add" type="button"
+                                        class="btn btn-sm btn-primary">
+                                    <span class="fa fa-plus" aria-hidden="true"></span>新增
+                                </button>
+                            </div>
+                            <table id="FacilityTable"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/dist/js/sb-admin-2.js"></script>
+
+<!-- Datepicker JavaScript -->
+<script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+
+<!-- BootstrapTables JavaScript -->
+<script src="/vendor/bootstrap-table/bootstrap-table.js"></script>
+<script src="/vendor/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+
+<!-- PledgeTable JavaScript -->
+<script src="/js/own/facilityTable.js"></script>
+
+</body>
+
+</html>

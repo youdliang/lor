@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Select2 -->
+    <!--<link rel="stylesheet" href="../vendor/select2/select2.min.css">-->
+
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="../vendor/datepicker/datepicker3.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        .row{margin-bottom: 10px;}
+    </style>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Page Content -->
+    <div id="page-wrapper" style="margin-left: 0px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">授信</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+            <form role="form" action="/creditOne/save"  method="post" onSubmit="return check()">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>融资：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <select class="form-control select2" name="financing" id="financing">
+                                    <option disabled selected value></option>
+                                    <!--<option th:each="financing:${credit_info.financingList}" th:value="${financing}" th:text="${financing}"></option>-->
+                                    <option value="公司类贷款">公司类贷款</option>
+                                    <option value="零售类贷款">零售类贷款</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>用途：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="purpose_loan" value="A1">贷款
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="purpose_acceptance" value="A2">承兑
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="purpose_LG" value="A3">保函
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="purpose_LC" value="A4">信用证
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="purpose_others" value="A5">其他或未知
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>额度号：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <input class="form-control" name="lineNumber" id="lineNumber" th:value="${credit_info.lineNumber}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>额度描述：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input class="form-control" name="lineDescription" id="lineDescription" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>额度等级：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <select class="form-control select2" name="lineGrade" id="lineGrade">
+                                    <option disabled selected value></option>
+                                    <option th:each="lineGrade:${credit_info.lineGradeList}" th:value="${lineGrade.linerrflag}" th:text="${lineGrade.flagtext}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>额度状况：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <select class="form-control select2" name="lineStatus" id="lineStatus" disabled>
+                                    <option disabled selected value></option>
+                                    <option value="等候" th:selected="${credit_info.lineStatus == '等候'}">等候</option>
+                                    <option value="使用" th:selected="${credit_info.lineStatus == '使用'}">使用</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>币种：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <select class="form-control select2" name="currency" id="currency">
+                                    <option disabled selected value></option>
+                                    <option th:each="currency:${credit_info.currencyList}" th:value="${currency.ccyid}" th:text="${currency.ccytext}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>额度金额：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="number" class="form-control" name="lineAmount" id="lineAmount" step="0.01" max="9999999999999.99" min="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>已用额度：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <input class="form-control" name="usedLineAmount" id="usedLineAmount" th:value="${credit_info.usedLineAmount}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>余额：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input class="form-control" name="remainingLineAmount" id="remainingLineAmount" th:value="${credit_info.remainingLineAmount}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>冻结金额：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <input class="form-control" name="freezingLineAmount" id="freezingLineAmount" th:value="${credit_info.freezingLineAmount}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>可用额度：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input class="form-control" name="availableLineAmount" id="availableLineAmount" th:value="${credit_info.availableLineAmount}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5"></div>
+                            <div class="col-lg-7 checkbox">
+                                <label>
+                                    <input type="checkbox" value="" name="hasBail">[商][小][微]有保证金
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>[商][小][微]承兑保证金：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="number" class="form-control" value="0" name="acceptanceBail" step="0.01" max="9999999999999.99" min="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>[商]保函保证金：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <input type="number" class="form-control" value="0" name="LGBail" step="0.01" max="9999999999999.99" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>[商]信用证保证金：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="number" class="form-control" value="0" name="LCBail" step="0.01" max="9999999999999.99" min="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>抵押担保方式：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <select class="form-control select2" name="collateralMethod" id="collateralMethod">
+                                    <option disabled selected value></option>
+                                    <!--<option th:each="collateralMethod:${credit_info.collateralMethodList}" th:value="${collateralMethod}" th:text="${collateralMethod}"></option>-->
+                                    <option value="信用">信用</option>
+                                    <option value="保证">保证</option>
+                                    <option value="抵押">抵押</option>
+                                    <option value="质押">质押</option>
+                                    <option value="抵押+质押">抵押+质押</option>
+                                    <option value="抵押+保证">抵押+保证</option>
+                                    <option value="质押+保证">质押+保证</option>
+                                    <option value="抵押+质押+保证">抵押+质押+保证</option>
+                                    <option value="全额保证金">全额保证金</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>文档标示：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <select class="form-control select2" name="documentMark" id="documentMark">
+                                    <option disabled selected value></option>
+                                    <option th:each="documentMark:${credit_info.documentMarkList}" th:value="${documentMark.condindflag}" th:text="${documentMark.flagtext}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>创建日期：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="date" class="form-control pull-right datepicker" name="createDate" id="createDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>循环：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <select class="form-control select2" name="loopFlag" id="loopFlag">
+                                    <option disabled selected value></option>
+                                    <option value="Y">Y</option>
+                                    <option value="N">N</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>到期日期：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="date" class="form-control pull-right datepicker" name="dueDate" id="dueDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <label>国别风险：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <select class="form-control select2" name="countryRisk" id="countryRisk">
+                                    <option disabled selected value></option>
+                                    <option th:each="countryRisk:${credit_info.countryRiskList}" th:value="${countryRisk.code}" th:text="${countryRisk.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>目的：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <input class="form-control" name="remark" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <div class="col-lg-5">
+                                <label>原始额：</label>
+                            </div>
+                            <div class="col-lg-7">
+                                <input type="number" class="form-control" name="originalAmount" step="0.01" max="9999999999999.99" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="padding-top: 2%; padding-bottom: 2%; padding-left: 3%;">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+<!-- Select2 -->
+<!--<script src="../vendor/select2/select2.full.min.js"></script>-->
+
+<!-- bootstrap datepicker -->
+<script src="../vendor/datepicker/bootstrap-datepicker.js"></script>
+
+<script>
+//    $(function () {
+//        //Initialize Select2 Elements
+//        $(".select2").select2();
+//
+//        //Date picker
+//        $('.datepicker').datepicker({
+//            autoclose: true
+//        });
+//    });
+    function check()
+    {
+        $('.row select').removeAttr("style");
+        $('.row input').removeAttr("style");
+        if ($('#financing').val() == null){
+            alert("融资不能为空");
+            $('#financing').css("border","1px solid red");
+            $('#financing').focus();
+            return false;
+        }
+        if ($('#lineDescription').val() == ""){
+            alert("额度描述不能为空");
+            $('#lineDescription').css("border","1px solid red");
+            $('#lineDescription').focus();
+            return false;
+        }
+        if ($('#lineGrade').val() == null){
+            alert("额度等级不能为空");
+            $('#lineGrade').css("border","1px solid red");
+            $('#lineGrade').focus();
+            return false;
+        }
+        if ($('#currency').val == null){
+            alert("币种不能为空");
+            $('#currency').css("border","1px solid red");
+            $('#currency').focus();
+            return false;
+        }
+        if ($('#lineAmount').val() == ""){
+            alert("额度金额不能为空");
+            $('#lineAmount').css("border","1px solid red");
+            $('#lineAmount').focus();
+            return false;
+        }
+        if ($('#collateralMethod').val() == null){
+            alert("抵押担保方式不能为空");
+            $('#collateralMethod').css("border","1px solid red");
+            $('#collateralMethod').focus();
+            return false;
+        }
+        if ($('#documentMark').val == null){
+            alert("文档标示不能为空");
+            $('#documentMark').css("border","1px solid red");
+            $('#documentMark').focus();
+            return false;
+        }
+        if ($('#createDate').val() == ""){
+            alert("创建日期不能为空");
+            $('#createDate').css("border","1px solid red");
+            $('#createDate').focus();
+            return false;
+        }
+        if ($('#loopFlag').val() == null){
+            alert("循环不能为空");
+            $('#loopFlag').css("border","1px solid red");
+            $('#loopFlag').focus();
+            return false;
+        }
+        if ($('#dueDate').val() == ""){
+            alert("到期日期不能为空");
+            $('#dueDate').css("border","1px solid red");
+            $('#dueDate').focus();
+            return false;
+        }
+        if ($('#countryRisk').val() == null){
+            alert("国别风险不能为空");
+            $('#countryRisk').css("border","1px solid red");
+            $('#countryRisk').focus();
+            return false;
+        }
+        $("#lineNumber").attr("disabled",false);
+        $("#lineStatus").attr("disabled",false);
+        $("#usedLineAmount").attr("disabled",false);
+        $("#remainingLineAmount").attr("disabled",false);
+        $("#freezingLineAmount").attr("disabled",false);
+        $("#availableLineAmount").attr("disabled",false);
+        return true;
+    }
+</script>
+
+</body>
+
+</html>

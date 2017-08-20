@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:display="http://www.w3.org/1999/xhtml"
+      xmlns:div.display="http://www.w3.org/1999/xhtml" xmlns:row.display="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>guarantee</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" href="../../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link th:href="@{/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link th:href="@{/dist/css/sb-admin-2.css}" rel="stylesheet">
+
+    <link th:href="@{/vendor/datatables/css/jquery.dataTables.min.css}"
+          href="../../static/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+
+
+<!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}" src="../../static/vendor/jquery/jquery.min.js"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+
+    <!-- datatables  JavaScript -->
+    <script th:src="@{/vendor/datatables/js/jquery.dataTables.min.js}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{/dist/js/sb-admin-2.js}"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        function doChangePersonalFlag(){
+//                document.getElementsById("personalFlag1").value="N";
+//                document.getElementsById("personalFlag2").value="Y";
+
+
+                var flag = document.getElementById("PersonlFlag");
+                var index=flag.selectedIndex ;
+//                alert(index);
+                if(flag.options[index].value == "N")
+                {
+                    document.getElementById("guarantee1").style.display='block';
+                    document.getElementById("guarantee2").style.display='none';
+                    $("#personlflag1").val("N");
+                }
+                if(flag.options[index].value == "Y")
+                {
+                    document.getElementById("guarantee1").style.display='none';
+                    document.getElementById("guarantee2").style.display='block';
+                    document.getElementsById("personalFlag2").value="Y";
+                    $("#personlflag2").val("N");
+                }
+            }
+
+        function doChangePersonalFlag2(){
+            if($("#PersonlFlag2").val()=="N"){
+                $("#Updateguarantee1").show();
+                $("#Updateguarantee2").hide();
+            }
+            else{
+                $("#Updateguarantee1").hide();
+                $("#Updateguarantee2").show();
+            }
+
+        }
+
+        function submit1(){
+            if($("#PersonlFlag").val()=="N"){
+                $("#lastName1").attr("disabled",false);
+                $("#bizRegNo1").attr("disabled",false);
+                $("#pIdNo1").attr("disabled",false);
+                $("#registeredAMLCCY1").attr("disabled",false);
+                $("#registeredAML1").attr("disabled",false);
+                $("#custType1").attr("disabled",false);
+                $("#submit1").click();
+            }
+            if($("#PersonlFlag").val()=="Y"){
+                $("#custType2").attr("disabled",false);
+                $("#lastName2").attr("disabled",false);
+                $("#WorkUnits2").attr("disabled",false);
+                $("#Ethnic2").attr("disabled",false);
+                $("#submit2").click();
+            }
+
+        }
+
+        function updatesubmit1(){
+            if($("#PersonlFlag2").val()=="N"){
+                $("#updatelastName1").attr("disabled",false);
+                $("#updatebizRegNo1").attr("disabled",false);
+                $("#updatepIdNo1").attr("disabled",false);
+                $("#updateregisteredAMLCCY1").attr("disabled",false);
+                $("#updateregisteredAML1").attr("disabled",false);
+                $("#updatecustType1").attr("disabled",false);
+                $("#updatesubmit1").click();
+            }
+            if($("#PersonlFlag2").val()=="Y"){
+                $("#updatecustType2").attr("disabled",false);
+                $("#updatelastName2").attr("disabled",false);
+                $("#updateWorkUnits2").attr("disabled",false);
+                $("#updateEthnic2").attr("disabled",false);
+                $("#updatesubmit2").click();
+            }
+
+        }
+
+        function deleteOne() {
+            var deleteID;
+            if($("#PersonlFlag2").val()=="N") {
+                 deleteId = $("#updateid1").val();
+            }
+            if($("#PersonlFlag2").val()=="Y") {
+                 deleteId = $("#updateid2").val();
+            }
+            $.ajax({
+                type: "POST",
+                url: "/guaranteeDelete",
+//                dataType: "json",
+                data: {deleteId : deleteId
+                },
+                success: function(data){
+                    alert("删除成功，将自动刷新记录");
+//                    $("#updateForm").submit();
+                    $("#refreshButtom").click();
+                }
+            });
+        }
+
+        function getOtherInfo1(){
+            var Ethnic = $("#Ethnic1").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/ethnicForOthers1",
+                dataType: "json",
+                data: {Ethnic : Ethnic
+                },
+                success: function(result){
+
+//                    alert(result[0].lastName);
+                    if(result[0]==null)
+                    {
+                        $("#Ethnic1").val(null);
+                        $("#EthnicCheck1").show();
+                        $("#lastName1").val(null);
+                        $("#bizRegNo1").val(null);
+                        $("#pIdNo1").val(null);
+                        $("#registeredAMLCCY1").val(null);
+                        $("#registeredAML1").val(null);
+                        $("#custType1").val(null);
+                    }
+                    else{
+                        $("#EthnicCheck1").hide();
+                        $("#lastName1").val(result[0].lastName);
+                        $("#bizRegNo1").val(result[0].bizRegNo);
+                        $("#pIdNo1").val(result[0].pIdNo);
+                        $("#registeredAMLCCY1").val(result[0].registeredAMLCCY);
+                        $("#registeredAML1").val(result[0].registeredAML);
+                        $("#custType1").val(result[0].custType);
+                    }
+
+                }
+            });
+        }
+
+        function getOtherInfo2(){
+            var pIdNo = $("#pIdNo2").val();
+            $.ajax({
+                type: "POST",
+                url: "/ethnicForOthers2",
+                dataType: "json",
+                data: {pIdNo : pIdNo
+                },
+                success: function(result){
+
+//                    alert(result[0].lastName);
+                    if(result[0]==null)
+                    {
+                        $("#pIdNo2").val(null);
+                        $("#pIDCheck2").show();
+                        $("#custType2").val(null);
+                        $("#lastName2").val(null);
+                        $("#WorkUnits2").val(null);
+                        $("#Ethnic2").val(null);
+                    }
+                    else{
+                        $("#pIDCheck2").hide();
+                        $("#custType2").val(result[0].custType);
+                        $("#lastName2").val(result[0].lastName);
+                        $("#WorkUnits2").val(result[0].workUnits);
+                        $("#Ethnic2").val(result[0].ethnic);
+                    }
+
+
+
+                }
+            });
+        }
+
+        function updategetOtherInfo1(){
+            var Ethnic = $("#updateEthnic1").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/ethnicForOthers1",
+                dataType: "json",
+                data: {Ethnic : Ethnic
+                },
+                success: function(result){
+
+//                    alert(result[0].lastName);
+                    if(result[0]==null)
+                    {
+                        $("#updateEthnic1").val(null);
+                        $("#updateEthnicCheck1").show();
+                        $("#updatelastName1").attr("disabled",false);
+                        $("#updatelastName1").val(null);
+                        $("#updatelastName1").attr("disabled",true);
+
+                        $("#updatebizRegNo1").attr("disabled",false);
+                        $("#updatebizRegNo1").val(null);
+                        $("#updatebizRegNo1").attr("disabled",true);
+
+                        $("#updatepIdNo1").attr("disabled",false);
+                        $("#updatepIdNo1").val(null);
+                        $("#updatepIdNo1").attr("disabled",true);
+
+                        $("#updateregisteredAMLCCY1").attr("disabled",false);
+                        $("#updateregisteredAMLCCY1").val(null);
+                        $("#updateregisteredAMLCCY1").attr("disabled",true);
+
+                        $("#updateregisteredAML1").attr("disabled",false);
+                        $("#updateregisteredAML1").val(null);
+                        $("#updateregisteredAML1").attr("disabled",true);
+
+                        $("#updatecustType1").attr("disabled",false);
+                        $("#updatecustType1").val(null);
+                        $("#updatecustType1").attr("disabled",true);
+                    }
+                    else{
+                        $("#updateEthnicCheck1").hide();
+                        $("#updatelastName1").attr("disabled",false);
+                        $("#updatelastName1").val(result[0].lastName);
+                        $("#updatelastName1").attr("disabled",true);
+
+                        $("#updatebizRegNo1").attr("disabled",false);
+                        $("#updatebizRegNo1").val(result[0].bizRegNo);
+                        $("#updatebizRegNo1").attr("disabled",true);
+
+                        $("#updatepIdNo1").attr("disabled",false);
+                        $("#updatepIdNo1").val(result[0].pIdNo);
+                        $("#updatepIdNo1").attr("disabled",true);
+
+                        $("#updateregisteredAMLCCY1").attr("disabled",false);
+                        $("#updateregisteredAMLCCY1").val(result[0].registeredAMLCCY);
+                        $("#updateregisteredAMLCCY1").attr("disabled",true);
+
+                        $("#updateregisteredAML1").attr("disabled",false);
+                        $("#updateregisteredAML1").val(result[0].registeredAML);
+                        $("#updateregisteredAML1").attr("disabled",true);
+
+                        $("#updatecustType1").attr("disabled",false);
+                        $("#updatecustType1").val(result[0].custType);
+                        $("#updatecustType1").attr("disabled",true);
+                    }
+
+                }
+            });
+        }
+
+        function updategetOtherInfo2(){
+            var pIdNo = $("#updatepIdNo2").val();
+            $.ajax({
+                type: "POST",
+                url: "/ethnicForOthers2",
+                dataType: "json",
+                data: {pIdNo : pIdNo
+                },
+                success: function(result){
+
+//                    alert(result[0].lastName);
+                    if(result[0]==null)
+                    {
+                        $("#updatepIdNo2").val(null);
+                        $("#updatepIDCheck2").show();
+                        $("#updatecustType2").attr("disabled",false);
+                        $("#updatecustType2").val(null);
+                        $("#updatecustType2").attr("disabled",true);
+
+                        $("#updatelastName2").attr("disabled",false);
+                        $("#updatelastName2").val(null);
+                        $("#updatelastName2").attr("disabled",true);
+
+                        $("#updateWorkUnits2").attr("disabled",false);
+                        $("#updateWorkUnits2").val(null);
+                        $("#updateWorkUnits2").attr("disabled",true);
+
+                        $("#updateEthnic2").attr("disabled",false);
+                        $("#updateEthnic2").val(null);
+                        $("#updateEthnic2").attr("disabled",true);
+                    }
+                    else{
+                        $("#updatepIDCheck2").hide();
+                        $("#updatecustType2").attr("disabled",false);
+                        $("#updatecustType2").val(result[0].custType);
+                        $("#updatecustType2").attr("disabled",true);
+
+                        $("#updatelastName2").attr("disabled",false);
+                        $("#updatelastName2").val(result[0].lastName);
+                        $("#updatelastName2").attr("disabled",true);
+
+                        $("#updateWorkUnits2").attr("disabled",false);
+                        $("#updateWorkUnits2").val(result[0].workUnits);
+                        $("#updateWorkUnits2").attr("disabled",true);
+
+                        $("#updateEthnic2").attr("disabled",false);
+                        $("#updateEthnic2").val(result[0].ethnic);
+                        $("#updateEthnic2").attr("disabled",true);
+                    }
+
+
+
+                }
+            });
+        }
+
+        function newInsert(){
+            $("#insertForm").show();
+            $("#updateForm").hide();
+        }
+
+        $(document).ready(function () {
+            var table = $('#dataTables-example').DataTable(
+                {
+                    "scrollY": "200px",    //设置Y轴长度和拖动条
+                    "scrollCollapse": "true",
+
+                    "language": {    //设置中文表格提示语
+                        "lengthMenu": "每页 _MENU_ 条记录",
+                        "zeroRecords": "没有找到记录",
+                        "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+                        "infoEmpty": "无记录",
+                        "infoFiltered": "(从 _MAX_ 条记录过滤)"
+                    },
+
+                }
+            );
+
+
+            $('#dataTables-example tbody').on('click', 'tr', function () {
+
+                var data = table.row(this).data();
+                $("#insertForm").hide();
+                $("#updateForm").show();
+                var id = data[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/GuaranteeSearchById",
+                    dataType: "json",
+                    data: {id : id
+                    },
+                    success: function(result){
+
+                        $("#PersonlFlag2").attr("disabled",false);
+                        $("#PersonlFlag2").val(result[0].personalFlag);
+                        $("#PersonlFlag2").attr("disabled",true);
+                        doChangePersonalFlag2();
+                        if(result[0].personalFlag=="N"){
+                            $("#updateid1").val(result[0].id);
+                            $("#updateline_no1").val(result[0].line_no);
+                            $("#updateContractSymbol1").val(result[0].contractSymbol);
+                            $("#updateSignedDate1").val(result[0].signedDate);
+                            $("#updateEthnic1").val(result[0].ethnic);
+                            $("#updateMode11").val(result[0].mode1);
+                            $("#updateAmountCCY1").val(result[0].amountCCY);
+                            $("#updateAmount1").val(result[0].amount);
+                            $("#updateType1").val(result[0].type);
+                            $("#updateBeginDate1").val(result[0].beginDate);
+                            $("#updateEndDate1").val(result[0].endDate);
+                            $("#updateShareScale1").val(result[0].shareScale);
+                            $("#updateRemark1").val(result[0].remark);
+                            $("#updatelastName1").val(result[0].lastName);
+                            $("#updatebizRegNo1").val(result[0].bizRegNo);
+                            $("#updatepIdNo1").val(result[0].pIdNo);
+                            $("#updateregisteredAMLCCY1").val(result[0].registeredAMLCCY);
+                            $("#updateregisteredAML1").val(result[0].registeredAML);
+                            $("#updatecustType1").val(result[0].custType);
+
+                        }
+                        else{
+                            $("#updateid2").val(result[0].id);
+                            $("#updateline_no2").val(result[0].line_no);
+                            $("#updateContractSymbol2").val(result[0].contractSymbol);
+                            $("#updateSignedDate2").val(result[0].signedDate);
+                            $("#updatepIdNo2").val(result[0].pIdNo);
+                            $("#updateMode12").val(result[0].mode1);
+                            $("#updateAmountCCY2").val(result[0].amountCCY);
+                            $("#updateAmount2").val(result[0].amount);
+                            $("#updateType2").val(result[0].type);
+                            $("#updateBeginDate2").val(result[0].beginDate);
+                            $("#updateEndDate2").val(result[0].endDate);
+                            $("#updateShareScale2").val(result[0].shareScale);
+                            $("#updateRemark2").val(result[0].remark);
+                            $("#updateWorkUnitsCharacter2").val(result[0].workUnitsCharacter);
+                            $("#updatecustType2").val(result[0].custType);
+                            $("#updatelastName2").val(result[0].lastName);
+                            $("#updateWorkUnits2").val(result[0].workUnits);
+                            $("#updateEthnic2").val(result[0].ethnic);
+                        }
+                    }
+                });
+
+            });
+
+
+
+
+
+
+
+
+        });
+    </script>
+
+
+
+
+</head>
+<body>
+
+<div class="col-lg-12">
+    <div id="insertForm" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">新增担保人信息</a>
+                <button type="button" class="btn btn-primary" onclick="submit1()" >添 加</button>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <h4>个人企业标志</h4>
+                    </div>
+                    <div class="col-lg-1">
+                        <select onchange=doChangePersonalFlag() class="form-control"  id="PersonlFlag" name=PersonalFlag >
+                            <option value="N">企业</option>
+                            <option value="Y">个人</option>
+                        </select>
+                    </div>
+                </div>
+                <div  id ="guarantee1"  >
+                    <div class="col-lg-12" >
+                        <form   id="guarantee11" th:action="@{/guarantee(custcode=${custcode})}" th:object="${guarantee_entity1}" method="post"  >
+                            <h4>企业保证</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input id="personalFlag1" class="form-control"  th:field="*{personalFlag}"  VALUE="N"  style="display:none"  >
+                                </div>
+                            </div>
+                            <div>
+                                <input class="form-control" th:field="*{custcod}" style="display:none">
+                            </div>
+
+                            <div class="row" >
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label id="eduhao">额度号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control"  th:field="*{line_no}" name="line_no" required>
+                                            <option th:each="Type:${guarantee_info.line_noList}" th:value="${Type.LINENO}" th:text="${Type.LINENO}"></option>
+
+                                        </select>
+                                        <!--<input  th:type="text" type="text" class="form-control"  th:field="*{line_no}" name="line_no " maxlength="5" value="10002" th:value="10001"   >-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证合同号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{ContractSymbol}" name="ContractSymbol" maxlength="60" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证合同签订日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" th:field="*{SignedDate}" name="SignedDate" id="SignedDate">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人贷款卡编号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{Ethnic}" id="Ethnic1" maxlength="20" onchange="getOtherInfo1()" required>
+                                        <span id="EthnicCheck1" style="color:red; display:none">贷款卡编号不存在！</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="lastName1" th:field="*{lastName}" name="lastName" maxlength="50" disabled >
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>组织机构代码证：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="bizRegNo1" th:field="*{bizRegNo}" name="bizRegNo" maxlength="10" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>营业执照号码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="pIdNo1" th:field="*{pIdNo}" name="pIdNo" maxlength="20" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>企业注册资本(万)：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-4">
+                                            <!--<select class="form-control" id="registeredAMLCCY1" th:field="*{registeredAMLCCY}" name="registeredAMLCCY" disabled>-->
+                                                <!--<option value="rmb">CNY</option>-->
+                                                <!--<option value="USD">USD</option>-->
+                                            <!--</select>-->
+                                            <input class="form-control" id="registeredAMLCCY1" th:field="*{registeredAMLCCY}"  disabled  >
+
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" id="registeredAML1" th:field="*{registeredAML}"  name="registeredAML" type="number" disabled >
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>企业规模：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="" id="custType1" th:field="*{custType}" name="custType" disabled>
+                                            <option value="1">大</option>
+                                            <option value="2">中</option>
+                                            <option value="3">小</option>
+                                            <option value="0">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证方式：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control"   th:field="*{Mode1}" name="Mode1" required >
+                                            <option value="1" >连带保证</option>
+                                            <option value="0">一般保证</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-4">
+                                            <select class="form-control" selected="" th:field="*{AmountCCY}" name="AmountCCY" required>
+                                                <option value="rmb">CNY</option>
+                                                <option value="USD">USD</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input type="number" class="form-control" th:field="*{Amount}"  name="Amount" required>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>担保方式：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="selected" th:field="*{Type}" name="Type" required>
+                                            <option value="1">单人保证</option>
+                                            <option value="2">多人分保</option>
+                                            <option value="3">多人联保</option>
+                                            <option value="0">无</option>
+                                            <!--<option th:each="Type:${guarantee_info.TypeList}" th:value="${Type.USERID}" th:text="${Type.USERNAME}"></option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-2">
+                                        <label>  保证期限</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>  起始日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" th:field="*{BeginDate}" name="BeginDate" id="BeginDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>到期日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" th:field="*{EndDate}" name="EndDate" id="EndDate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>分担比例：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" th:field="*{ShareScale}" name="ShareScale" type="number" min="0"  max="100" required>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>%</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>备注：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <textarea class="form-control"   th:field="*{Remark}" name="Remark" maxlength="100" ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: none">
+                                <button id="submit1" type="submit" class="btn btn-primary"  >添 加</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div  id ="guarantee2" style="display: none;">
+                    <div class="col-lg-12" >
+                        <form   name="guarantee22" th:action="@{/guarantee(custcode=${custcode})}" th:object="${guarantee_entity2}" method="post" >
+                            <h4>个人保证</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input id="personalFlag2" class="form-control"  th:field="*{personalFlag}"  style="display: none";>
+                                </div>
+                            </div>
+                            <div>
+                                <input class="form-control" th:field="*{custcod}" style="display:none">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>额度号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control"  th:field="*{line_no}" name="line_no" required>
+                                            <option th:each="Type:${guarantee_info.line_noList}" th:value="${Type.LINENO}" th:text="${Type.LINENO}"></option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证合同号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{ContractSymbol}" maxlength="60" name="ContractSymbol" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证合同签订日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" th:field="*{SignedDate}">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人证件类型：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control"  id="custType2" th:field="*{custType}" disabled >
+                                            <option value></option>
+                                            <option th:each="Type:${guarantee_info.PidTypeList}" th:value="${Type.CSTCOD2}" th:text="${Type.CSTCDES}"></option>
+                                        </select>
+                                        <!--<input class="form-control" id="custType2" th:field="*{custType}" name="custType" maxlength="1" disabled>-->
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人证件代码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"  th:field="*{pIdNo}" id="pIdNo2" onchange="getOtherInfo2()" maxlength="20" required>
+                                        <span id="pIDCheck2" style="color:red; display:none">证件代码不存在！</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人中文名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{lastName}"  id="lastName2" maxlength="50" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人工作单位：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"  th:field="*{WorkUnits}" id="WorkUnits2" maxlength="40" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>工作单位性质：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+
+                                        <select class="form-control" selected="" th:field="*{WorkUnitsCharacter}" name="WorkUnitsCharacter" required>
+                                            <option value="1">政府部门</option>
+                                            <option value="2">国有企业</option>
+                                            <option value="3">股份制企业</option>
+                                            <option value="4">个体经济</option>
+                                            <option value="0">其他</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>贷款卡编码：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" id="Ethnic2" th:field="*{Ethnic}"  maxlength="20"  disabled>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证方式：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected=""  th:field="*{Mode1}"name="Mode1" required>
+                                            <option value="1">连带保证</option>
+                                            <option value="0">一般保证</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-4">
+                                            <select class="form-control" selected="" th:field="*{AmountCCY}" name="AmountCCY" required>
+                                                <option value="rmb">CNY</option>
+                                                <option value="USD">USD</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input type="number" class="form-control" th:field="*{Amount}"  name="Amount" required>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>担保方式：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="selected" th:field="*{Type}" name="Type" required>
+                                            <option value="1">单人保证</option>
+                                            <option value="2">多人分保</option>
+                                            <option value="3">多人联保</option>
+                                            <option value="0">无</option>
+                                            <!--<option th:each="Type:${guarantee_info.TypeList}" th:value="${Type.USERID}" th:text="${Type.USERNAME}"></option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-2">
+                                        <label>保证期限</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>起始日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" th:field="*{BeginDate}" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>到期日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" th:field="*{EndDate}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>分担比例：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" th:field="*{ShareScale}" name="ShareScale"  th:type="number" th:min="0"  th:max="100" required>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>%</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div id ="testtime" class="col-lg-4">
+                                        <label>备注：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <textarea class="form-control"   th:field="*{Remark}" name="Remark" maxlength="100"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: none">
+                                <button id="submit2" type="submit" class="btn btn-primary"  >添 加</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="updateForm" class="panel panel-default" style="display:none">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">修改担保人信息</a>
+                <button type="button" class="btn btn-primary" onclick="updatesubmit1()" >修 改</button>
+                <button  type="button" class="btn btn-primary" th:onclick="'deleteOne()'" >删 除</button>
+
+            </h4>
+        </div>
+        <div id="collapseTwe" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <h4>个人企业标志</h4>
+                    </div>
+                    <div class="col-lg-1">
+                        <select  class="form-control"  id="PersonlFlag2"   name=PersonalFlag>
+                            <option value="N">企业</option>
+                            <option value="Y">个人</option>
+                        </select>
+                    </div>
+                </div>
+                <div  id ="Updateguarantee1"  >
+                    <div class="col-lg-12" >
+                        <form   id="updateguarantee11" th:action="@{/guaranteeUpdate(custcode=${custcode})}" th:object="${guarantee_entity3}" method="post"  >
+                            <h4>企业保证</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input id="updatepersonalFlag1" class="form-control"  th:field="*{personalFlag}"  VALUE="N"  style="display:none"  >
+                                    <input class="form-control" th:field="*{custcod}" style="display:none">
+                                    <input class="form-control" id="updateid1" th:field="*{id}" style="display:none">
+                                </div>
+                            </div>
+
+                            <div class="row" >
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label id="eduhao">额度号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" id="updateline_no1" th:field="*{line_no}" name="line_no" required disabled>
+                                            <option th:each="Type:${guarantee_info.line_noList}" th:value="${Type.LINENO}" th:text="${Type.LINENO}"></option>
+
+                                        </select>
+                                        <!--<input  th:type="text" type="text" class="form-control"  th:field="*{line_no}" name="line_no " maxlength="5" value="10002" th:value="10001"   >-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证合同号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="updateContractSymbol1" th:field="*{ContractSymbol}" name="ContractSymbol" maxlength="60" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证合同签订日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" id="updateSignedDate1" th:field="*{SignedDate}" >
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人贷款卡编号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="updateEthnic1" th:field="*{Ethnic}" id="updateEthnic1" maxlength="20" onchange="updategetOtherInfo1()" required>
+                                        <span id="updateEthnicCheck1" style="color:red; display:none">贷款卡编号不存在！</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="updatelastName1" th:field="*{lastName}" name="lastName" maxlength="50" disabled >
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>组织机构代码证：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="updatebizRegNo1" th:field="*{bizRegNo}" name="bizRegNo" maxlength="10" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>营业执照号码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" id="updatepIdNo1" th:field="*{pIdNo}" name="pIdNo" maxlength="20" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>企业注册资本(万)：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-4">
+                                            <!--<select class="form-control" id="registeredAMLCCY1" th:field="*{registeredAMLCCY}" name="registeredAMLCCY" disabled>-->
+                                            <!--<option value="rmb">CNY</option>-->
+                                            <!--<option value="USD">USD</option>-->
+                                            <!--</select>-->
+                                            <input class="form-control" id="updateregisteredAMLCCY1" th:field="*{registeredAMLCCY}"  disabled  >
+
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input class="form-control" id="updateregisteredAML1" th:field="*{registeredAML}"  name="registeredAML" type="number" disabled >
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>企业规模：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="" id="updatecustType1" th:field="*{custType}" name="custType" disabled>
+                                            <option value="1">大</option>
+                                            <option value="2">中</option>
+                                            <option value="3">小</option>
+                                            <option value="0">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证方式：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control"  id="updateMode11" th:field="*{Mode1}" name="Mode1" required >
+                                            <option value="1" >连带保证</option>
+                                            <option value="0">一般保证</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-4">
+                                            <select class="form-control" selected="" id="updateAmountCCY1" th:field="*{AmountCCY}" name="AmountCCY" required>
+                                                <option value="rmb">CNY</option>
+                                                <option value="USD">USD</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input type="number" class="form-control" id="updateAmount1" th:field="*{Amount}"  name="Amount" required>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>担保方式：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="selected" id="updateType1" th:field="*{Type}" name="Type" required>
+                                            <option value="1">单人保证</option>
+                                            <option value="2">多人分保</option>
+                                            <option value="3">多人联保</option>
+                                            <option value="0">无</option>
+                                            <!--<option th:each="Type:${guarantee_info.TypeList}" th:value="${Type.USERID}" th:text="${Type.USERNAME}"></option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-2">
+                                        <label>  保证期限</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>  起始日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" id="updateBeginDate1" th:field="*{BeginDate}"  >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>到期日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" th:field="*{EndDate}" id="updateEndDate1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>分担比例：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" th:field="*{ShareScale}" id="updateShareScale1" type="number" min="0"  max="100" required>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>%</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>备注：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <textarea class="form-control"   th:field="*{Remark}" id="updateRemark1" maxlength="100" ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: none">
+                                <button id="updatesubmit1" type="submit" class="btn btn-primary"  >添 加</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div  id ="Updateguarantee2" style="display: none;">
+                    <div class="col-lg-12" >
+                        <form   name="updateguarantee22" th:action="@{/guaranteeUpdate(custcode=${custcode})}" th:object="${guarantee_entity4}" method="post" >
+                            <h4>个人保证</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input id="updatepersonalFlag2" class="form-control"  th:field="*{personalFlag}"  style="display: none">
+                                    <input class="form-control" id="updateid2" th:field="*{id}" style="display:none">
+                                </div>
+                            </div>
+                            <div>
+                                <input class="form-control" th:field="*{custcod}" style="display:none">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>额度号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control"  th:field="*{line_no}" id="updateline_no2" required disabled>
+                                            <option th:each="Type:${guarantee_info.line_noList}" th:value="${Type.LINENO}" th:text="${Type.LINENO}"></option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证合同号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{ContractSymbol}" maxlength="60" id="updateContractSymbol2" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证合同签订日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" th:field="*{SignedDate}" id="updateSignedDate2">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人证件类型：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control"  id="updatecustType2" th:field="*{custType}" disabled >
+                                            <option value></option>
+                                            <option th:each="Type:${guarantee_info.PidTypeList}" th:value="${Type.CSTCOD2}" th:text="${Type.CSTCDES}"></option>
+                                        </select>
+                                        <!--<input class="form-control" id="custType2" th:field="*{custType}" name="custType" maxlength="1" disabled>-->
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人证件代码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"  th:field="*{pIdNo}" id="updatepIdNo2" onchange="updategetOtherInfo2()" maxlength="20" required>
+                                        <span id="updatepIDCheck2" style="color:red; display:none">证件代码不存在！</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人中文名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" th:field="*{lastName}"  id="updatelastName2" maxlength="50" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证人工作单位：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"  th:field="*{WorkUnits}" id="updateWorkUnits2" maxlength="40" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>工作单位性质：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+
+                                        <select class="form-control" selected="" th:field="*{WorkUnitsCharacter}" id="updateWorkUnitsCharacter2" required>
+                                            <option value="1">政府部门</option>
+                                            <option value="2">国有企业</option>
+                                            <option value="3">股份制企业</option>
+                                            <option value="4">个体经济</option>
+                                            <option value="0">其他</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>贷款卡编码：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" id="updateEthnic2" th:field="*{Ethnic}"  maxlength="20"  disabled>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证方式：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected=""  th:field="*{Mode1}"id="updateMode12" required>
+                                            <option value="1">连带保证</option>
+                                            <option value="0">一般保证</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保证金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-4">
+                                            <select class="form-control" selected="" th:field="*{AmountCCY}" id="updateAmountCCY2" required>
+                                                <option value="rmb">CNY</option>
+                                                <option value="USD">USD</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input type="number" class="form-control" th:field="*{Amount}"  id="updateAmount2" required>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>担保方式：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="selected" th:field="*{Type}" id="updateType2" required>
+                                            <option value="1">单人保证</option>
+                                            <option value="2">多人分保</option>
+                                            <option value="3">多人联保</option>
+                                            <option value="0">无</option>
+                                            <!--<option th:each="Type:${guarantee_info.TypeList}" th:value="${Type.USERID}" th:text="${Type.USERNAME}"></option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-2">
+                                        <label>保证期限</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>起始日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" id="updateBeginDate2" th:field="*{BeginDate}" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>到期日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="date" class="form-control pull-right datepicker" id="updateEndDate2" th:field="*{EndDate}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>分担比例：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" th:field="*{ShareScale}" id="updateShareScale2"  th:type="number" th:min="0"  th:max="100" required>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>%</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div id ="testtime" class="col-lg-4">
+                                        <label>备注：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <textarea class="form-control"   th:field="*{Remark}" id="updateRemark2" maxlength="100"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: none">
+                                <button id="updatesubmit2" type="submit" class="btn btn-primary"  >添 加</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <button type="button" class="btn btn-primary" onclick="newInsert()">新 增</button>
+                        <a th:href="@{/guarantee(custcode=${custcode})}"><button type="button" class="btn btn-primary" id="refreshButtom" >刷 新</button> </a>
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="tableinfo">
+                            <table id="dataTables-example" class="row-border hover order-column" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>个人/企业标识</th>
+                                    <th>证件号码/贷款卡号</th>
+                                    <th>中文名称</th>
+                                    <th>分担比例</th>
+                                    <th>保证金额</th>
+                                </tr>
+                                </thead>
+                                <tbody id="LoanApplicantGuarantorInfoTable">
+                                <tr th:each="LoanApplicantGuarantor:${List_LoanApplicantGuarantor}">
+                                    <td th:text="${LoanApplicantGuarantor.id}"></td>
+                                    <td th:text="${LoanApplicantGuarantor.personalFlag}=='N'?'企业':'个人'"></td>
+                                    <td th:text="${LoanApplicantGuarantor.personalFlag}=='N'?${LoanApplicantGuarantor.Ethnic}:${LoanApplicantGuarantor.pIdNo}"></td>
+                                    <td th:text="${LoanApplicantGuarantor.lastName}"></td>
+                                    <td th:text="${LoanApplicantGuarantor.ShareScale}"></td>
+                                    <td th:text="${LoanApplicantGuarantor.Amount}"></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+</body>
+</html>

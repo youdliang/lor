@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:display="http://www.w3.org/1999/xhtml"
+      xmlns:div.display="http://www.w3.org/1999/xhtml" xmlns:row.display="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LOR</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"  href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link th:href="@{/dist/css/sb-admin-2.css}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!--<style>-->
+    <!--div#side-menu-->
+    <!--{-->
+    <!--margin:100px;-->
+    <!--transform:scale(0.8);-->
+    <!-- -ms-transform:scale(0.8); /* IE 9 */-->
+    <!-- -moz-transform:scale(0.8); /* Firefox */-->
+    <!-- -webkit-transform:scale(0.8); /* Safari and Chrome */-->
+    <!-- -o-transform:scale(0.8); /* Opera */-->
+    <!--}-->
+    <!--</style>-->
+    <style>
+        #searchbar{
+
+            transform:scale(0.9);
+            -ms-transform:scale(0.9); /* IE 9 */
+            -moz-transform:scale(0.9); /* Firefox */
+            -webkit-transform:scale(0.9); /* Safari and Chrome */
+            -o-transform:scale(0.9); /* Opera */
+            /*position: absolute;*/
+            float: left;
+            width:45%;
+            height: 600px;;
+
+        }
+        #iframeMapping{
+            /*height: 600px;*/
+            /*width:600px;*/
+            /*position: absolute;*/
+            /*left: 400px;*/
+            float: left;
+            width: 55%;
+            height: 600px;;
+        }
+    </style>
+    <script type="text/javascript">
+        function search()
+        {
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+            var personalFlag = $("#personalFlag").val();
+            var status = $("#status").val();
+            var manager = $("#manager").val();
+            var custCod = $("#custCod").val();
+            var lastName = $("#lastname").val();
+            var lregno = $("#lregno").val();
+
+            var list = "";
+
+            $.ajax({
+                type: "POST",
+                url: "/applySearchSearch",
+                dataType: "json",
+                data: {startDate : startDate,
+                    endDate : endDate,
+                    personalFlag : personalFlag,
+                    status : status,
+                    manager : manager,
+                    custCod : custCod,
+                    lastName : lastName,
+                    lregno : lregno
+                },
+                success: function(data){
+                    $(data).each(function (index) {
+//                        alert(data.toString());
+                        list+="<tr><td>"+data[index].bpm_no+"</td>"+
+                            "<td>"+data[index].custcode+"</td>"+
+                            "<td>"+data[index].lastName+"</td>"+
+                            "<td>"+data[index].status+"</td>"+
+                            "<td>"+data[index].pidno+"</td>"+
+                            "<td>"+data[index].startDate+"</td>"+
+//                            "<td><a href='"+data[index].cuscode+"' class='operation'><label>查看</label></a> " +
+                            "<td><a class='operation' onclick='setId("+data[index].cuscode+") ' > <label>查看</label></a> " +
+                            "</td></tr>";
+                    })
+                    $("#searchInfoTable").html(list);
+                }
+            });
+
+
+        }
+        function setId(i){
+            $('#iframeMapping').attr('src','/applySearchResult');
+        }
+    </script>
+
+
+</head>
+
+<body style="overflow-y: scroll; overflow-x: scroll">
+
+<div id="searchbar"  >
+    <form   name="guarantee"  method="get"  >
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">贷款信息查询</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+
+                    <div class="row" >
+                        <div class="col-lg-4">
+                            <label >开始日期：</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input   id="startDate" type="date" class="form-control"    >
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="col-lg-4">
+                            <label >结束日期：</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input   id="endDate" type="date" class="form-control"  >
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label >个人企业标志：</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <select id="personalFlag" class="form-control" >
+                                <option disabled  selected value>-</option>
+                                <option value="N">企业</option>
+                                <option value="Y">个人</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label >状态：</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <select id="status"  class="form-control"  >
+                                <option disabled selected value>-</option>
+                                <option value="1">修改抵押信息</option>
+                                <option value="2">修改复核信息</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label >客户经理：</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <select id="manager" class="form-control"    >
+                                <option disabled selected value>-</option>
+                                <option value="0">经理1</option>
+                                <option value="1">经理2</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="col-lg-4">
+                            <label >客户号：</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input  id="custCod" type="text" class="form-control"      >
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="col-lg-4">
+                            <label >中文名称：</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input id="lastname" type="text" class="form-control" >
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="col-lg-4">
+                            <label >注册登记号：</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input  id="lregno" type="text" class="form-control">
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4" align="center">
+                <button type="button" class="btn btn-primary" onclick="search()">查 询</button>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+        <hr/>
+
+        <div class="row" >
+            <div class="tableinfo">
+                <table  class="table" border="1" >
+                    <thead>
+                    <tr>
+                        <th>参考编号</th>
+                        <th>客户号</th>
+                        <th>中文名字</th>
+                        <th>贷款申请状态</th>
+                        <th>证件号码/注册登记号</th>
+                        <th>申请日期</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="searchInfoTable">
+                    </tbody>
+                    <!--<tr id="resultlist" th:each="proposerInfo : ${listresult}"  >-->
+                        <!--<td th:text="${proposerInfo.startDate}"></td>-->
+                        <!--<td th:text="${proposerInfo.endDate}"></td>-->
+                        <!--<td th:text="${proposerInfo.personalFlag}"></td>-->
+                        <!--<td th:text="${proposerInfo.status}"></td>-->
+                        <!--<td th:text="${proposerInfo.manager}"></td>-->
+                        <!--<td th:text="${proposerInfo.custCod}"></td>-->
+                        <!--<td th:text="${proposerInfo.lastName}"></td>-->
+                        <!--<td th:text="${proposerInfo.lregno}"></td>-->
+                    <!--</tr>-->
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+<iframe id="iframeMapping" src=""  ></iframe>
+
+<!-- jQuery -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}" ></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/dist/js/sb-admin-2.js}"></script>
+
+
+
+</body>
+
+</html>

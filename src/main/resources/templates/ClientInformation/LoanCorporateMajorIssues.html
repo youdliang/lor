@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:display="http://www.w3.org/1999/xhtml"
+      xmlns:div.display="http://www.w3.org/1999/xhtml" xmlns:row.display="http://www.w3.org/1999/xhtml">
+<head>
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap-table.js}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{/dist/js/sb-admin-2.js}"></script>
+    <script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+    <link href="/vendor/bootstrap/css/bootstrap-table.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/vendor/datepicker/datepicker3.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LoanCorporateMajorIssues</title>
+
+    <!-- Bootstrap Core CSS -->
+
+
+</head>
+
+<!--onload="getCustCode()"-->
+<body>
+
+<div id="page-LoanCorporateMajorIssues">
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#home" data-toggle="tab">
+                大事信息
+            </a>
+        </li>
+        <li><a href="javascript:void(0)" id="deleteAction">删除</a></li>
+    </ul>
+    <div class="tab-pane fade in active" id="home">
+        <form name="LoanCorporateMajorIssues" th:action="@{/LoanCorporateMajorIssues}"
+              th:object="${loanCorporateMajorIssues_entity}"
+              method="post">
+            <input class="form-control" id="id" type="hidden" name="id" th:field="*{id}">
+            <input class="form-control" id="custCode" type="hidden" name="custCode" th:field="*{custCode}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">大事信息</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>大事信息记录流水号:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{IssueRecordSeqNo}"
+                                           name="IssueRecordSeqNo " maxlength="60" id="IssueRecordSeqNo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('IssueRecordSeqNo')}"
+                                         th:errors="${loanCorporateMajorIssues_entity.IssueRecordSeqNo}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>大事信息描述:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <textarea class="form-control" th:field="*{IssueDescription}"
+                                              name="IssueDescription"
+                                              rows="5" maxlength="125"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('IssueDescription')}"
+                                         th:errors="${loanCorporateMajorIssues_entity.IssueDescription}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <br/>
+
+                <br/>
+            </div>
+
+
+            <div class="panel panel-default" th:object="${LoanCorporateMajorIssues_History}">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseHistory">保存记录</a>
+                    </h4>
+                </div>
+                <div id="collapseHistory" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <table id="historyTable">
+                            <thead>
+                            </thead>
+                        </table>
+                        <br/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4" align="center">
+                    <button type="reset" class="btn btn-primary">重 填</button>
+                    <button type="submit" class="btn btn-primary">保 存</button>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    $('#historyTable').bootstrapTable({
+        url: 'http://localhost:8001/LoanCorporateMajorIssues/getHistoryList',         //请求后台的URL（*）
+        method: 'get',                      //请求方式（*）
+        toolbar: '#toolbar',                //工具按钮用哪个容器
+        striped: true,                      //是否显示行间隔色
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        sortable: false,                     //是否启用排序
+        sortOrder: "asc",
+//        dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里只有前后端约定好就行
+        locale: 'zh-CN',                     //中文支持
+        pagination: true,                   //是否分页
+        sidePagination: 'server',           //指定服务器端分页
+        pageNumber: 1,                      //初始化加载第一页，默认第一页
+        pageSize: 5,                       //每页的记录行数（*）
+        pageList: [5, 10, 15, 50, 100, 'ALL'],        //可供选择的每页的行数（*）
+//        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        strictSearch: true,                 //搜索
+        showColumns: true,                  //是否显示所有的列
+        showRefresh: true,                  //是否显示刷新按钮
+        minimumCountColumns: 1,             //最少允许的列数
+        clickToSelect: true,                //是否启用点击选中行
+//                height: 500,              //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        uniqueId: "id",               //每一行的唯一标识，一般为主键列
+        showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+        cardView: false,                    //是否显示详细视图
+        detailView: false,                   //是否显示父子表
+        queryParams: queryParams,//请求服务器时所传的参数
+        responseHandler: responseHandler,//请求数据成功后，渲染表格前的方法
+        onClickRow: onClickRow,
+        columns: [{
+            field: 'id',
+            title: 'Id'
+        }, {
+            field: 'IssueRecordSeqNo',
+            title: '大事信息记录流水号'
+        }, {
+            field: 'IssueDescription',
+            title: '大事信息描述'
+        }]
+    })
+    //点击行事件
+    function onClickRow(item, $element) {
+        $('#id').val(item.id);
+        $('#custCode').val(item.custCode);
+        $('#IssueDescription').val(item.IssueDescription);
+        $('#IssueRecordSeqNo').val(item.IssueRecordSeqNo);
+    }
+    //请求服务数据时所传参数
+    function queryParams(params) {
+        return {
+            pageSize: params.limit, //每一页的数据行数，默认是上面设置的10(pageSize)
+            pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+        }
+    }
+
+    //请求成功方法
+    function responseHandler(result) {
+        var errCode = result.errCode;//在此做了错误代码的判断
+        if (errCode != 0) {
+            alert("错误代码" + errCode);
+            return;
+        }
+        //如果没有错误则返回数据，渲染表格
+        return {
+            total: result.dataLength, //总页数,前面的key必须为"total"
+            rows: result.rowDatas //行数据，前面的key要与之前设置的dataField的值一致.
+        };
+    };
+
+
+    $('#deleteAction').click(function () {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8001/LoanCorporateMajorIssues/delete?'
+            + 'id=' + $('#id').val()
+            + '',
+            contentType: "application/json",
+            success: function (data) {
+//                $('#historyTable').bootstrapTable("refresh",{url:"http://localhost:8001/LoanApplicantGuarantee/getHistoryList"})
+                location.replace(location.href);
+            },
+            error: function () {
+                alert("error");
+            }
+        })
+    });
+
+
+    //    function getCustCode() {
+    //        var CustCode = document.getElementById("custcode");
+    //        CustCode.value = $.ajax({
+    //            type: "get",
+    //            url: "http://localhost:8001/LoanCorporateMajorIssues/getCustCode",
+    //            async: false
+    //        }).responseText;
+    //    }
+</script>
+</body>
+
+</html>

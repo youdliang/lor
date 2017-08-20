@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:display="http://www.w3.org/1999/xhtml"
+      xmlns:div.display="http://www.w3.org/1999/xhtml" xmlns:row.display="http://www.w3.org/1999/xhtml">
+<head>
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap-table.js}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{/dist/js/sb-admin-2.js}"></script>
+    <script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+    <link href="/vendor/bootstrap/css/bootstrap-table.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/vendor/datepicker/datepicker3.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LoanApplicantSpouseNameInfo</title>
+
+    <!-- Bootstrap Core CSS -->
+
+
+</head>
+
+<!--onload="getCustCode()"-->
+<body>
+
+<div id="page-LoanApplicantSpouseNameInfo">
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#home" data-toggle="tab">
+                配偶信息
+            </a>
+        </li>
+        <li><a href="javascript:void(0)" id="deleteAction">删除</a></li>
+    </ul>
+    <div class="tab-pane fade in active" id="home">
+        <form name="LoanApplicantSpouseNameInfo" th:action="@{/LoanApplicantSpouseNameInfo}"
+              th:object="${loanApplicantSpouseNameInfo_entity}"
+              method="post">
+            <input class="form-control" id="custCode" type="hidden" name="custCode" th:field="*{custCode}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">配偶信息</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>配偶姓名:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{SpouseName}"
+                                           name="SpouseName" maxlength="15" id="SpouseName"
+
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('SpouseName')}"
+                                         th:errors="${loanApplicantSpouseNameInfo_entity.SpouseName}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>配偶证件类型:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <select class="form-control" th:field="*{SpouseIDType}" name="SpouseIDType"
+                                    >
+                                        <option th:each="SpouseIDType:${IDTypeInfoList}"
+                                                th:value="${SpouseIDType.CSTCOD2}"
+                                                th:text="${SpouseIDType.CSTLDES}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>配偶证件号码:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{SpouseIDNo}"
+                                           name="SpouseIDNo " maxlength="18"
+                                           id="SpouseIDNo"
+                                           pattern="^[A-Za-z0-9]+$" th:title="请输入18位以内的正确证件号码"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('SpouseIDType')}"
+                                         th:errors="${loanApplicantSpouseNameInfo_entity.SpouseIDType}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('SpouseIDNo')}"
+                                         th:errors="${loanApplicantSpouseNameInfo_entity.SpouseIDNo}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>配偶工作单位:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{SpouseCompanyName}"
+                                           name="SpouseCompanyName " maxlength="30"
+                                           id="SpouseCompanyName"
+
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>配偶联系电话:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{SpouseContactNo}"
+                                           name="SpouseContactNo " maxlength="25"
+                                           id="SpouseContactNo"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('SpouseCompanyName')}"
+                                         th:errors="${loanApplicantSpouseNameInfo_entity.SpouseCompanyName}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('SpouseContactNo')}"
+                                         th:errors="${loanApplicantSpouseNameInfo_entity.SpouseContactNo}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4" align="center">
+                    <button type="reset" class="btn btn-primary">重 填</button>
+                    <button type="submit" class="btn btn-primary">保 存</button>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        var isRecord = false;
+        var record = $.ajax({
+            url: "http://localhost:8001/LoanApplicantSpouseNameInfo/getHistoryListisRecord",
+            async: false,
+            dataType: "string",
+            type: "get"
+        }).responseText;
+        if (record == "true") isRecord = true;
+        else
+            isRecord = false;
+        $.ajax({
+            url: "http://localhost:8001/LoanApplicantSpouseNameInfo/getSpouse",
+            async: false,
+            dataType: "json",
+            type: "get",
+            success: function (data) {
+                if (isRecord) {
+                    $('#custCode').val(data[0].custCode);
+                    $('#SpouseName').val(data[0].SpouseName);
+                    $('#SpouseIDType').val(data[0].SpouseIDType);
+                    $('#SpouseIDNo').val(data[0].SpouseIDNo);
+                    $('#SpouseContactNo').val(data[0].SpouseContactNo);
+                    $('#SpouseCompanyName').val(data[0].SpouseCompanyName);
+                }
+            },
+            error: function () {
+                if (isRecord)
+                    alert("获取记录失败");
+            }
+        });
+
+    });
+
+    $('#deleteAction').click(function () {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8001/LoanApplicantSpouseNameInfo/delete?'
+            + 'custCode=' + $('#custCode').val()
+            + '',
+            contentType: "application/json",
+            success: function (data) {
+//                $('#historyTable').bootstrapTable("refresh",{url:"http://localhost:8001/LoanApplicantGuarantee/getHistoryList"})
+                location.replace(location.href);
+            },
+            error: function () {
+                alert("删除失败");
+            }
+        })
+    });
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Title</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet">
+
+    <link th:href="@{/lor/lor.css}" rel="stylesheet">
+
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="lorHead">
+    <div class="panel-heading lorHeadTitle">
+        DataTables Advanced Tables
+    </div>
+    <div class="lorButtonLeft">
+        <button class="btn btn-primary" id="btnAdd" type="button">add</button>
+        <button class="btn btn-primary" id="btnEdit" type="button">edit</button>
+        <button class="btn btn-primary" id="btnDelete" type="button">delete</button>
+    </div>
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Mode</th>
+                <th>custcod</th>
+                <th>line_no</th>
+            </tr>
+            </thead>
+        </table>
+
+    </div>
+    <!-- /.panel-body -->
+</div>
+
+<!-- jQuery -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+
+<!-- DataTables JavaScript -->
+<script th:src="@{/vendor/datatables/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/vendor/datatables-plugins/dataTables.bootstrap.min.js}"></script>
+
+<!-- lor -->
+<script th:src="@{/lor/lor.js}"></script>
+
+<script>
+
+   var oTable;
+    var lcoUrl =getProjectName();
+    //alert(lcoUrl);
+     function getKeyValue()
+     {
+         var rulKey="";
+         var anSelected = fnGetSelected( oTable );
+         if ( anSelected.length !== 0 ) {
+             var  currentSelect=anSelected[0];
+             var arr=oTable.fnGetData(currentSelect);
+             rulKey="id="+arr.id;
+         }
+         return rulKey;
+     }
+
+     function OpenWindow(tmpUrl)
+     {
+         window.open(tmpUrl, 'dreamduwin', 'width=1200,height=800,left=10,top=20,location=yes,status=yes,scrollbars=yes,resizable=yes');
+     }
+
+    $(document).ready(function() {
+
+
+        oTable = $('#dataTables').DataTable( {
+                "initComplete":function () {
+
+                    /* Init the table */
+                    oTable = $('#dataTables').dataTable( );
+
+                    $("#dataTables tbody tr").click( function(e) {
+                        //alert("select");
+                        if ( $(this).hasClass('row_selected') ) {
+                            $(this).removeClass('row_selected');
+                        }
+                        else {
+                            oTable.$('tr.row_selected').removeClass('row_selected');
+                            $(this).addClass('row_selected');
+                        }
+                    });
+
+
+                },
+            "paging": false,
+            "bFilter":false,
+            "ajax": {
+                url:lcoUrl+"/PledgeRest/getList?line_no=1&CUSTCOD=1",
+                dataSrc: ''
+            },
+            "columns":[
+                {"data":"id"},
+                {"data":"mode1"},
+                {"data":"custcod"},
+                {"data":"line_no"}
+            ],
+                "aoColumnDefs": [
+                    { "bVisible": false, "aTargets": [0] }
+                ]
+
+        }
+        );
+
+
+        /* Add a click handler for the delete row */
+        $('#btnDelete').click( function() {
+            //alert("delete");
+             var anSelected = fnGetSelected( oTable );
+            if ( anSelected.length !== 0 ) {
+               // alert("delete 1");
+                var key=getKeyValue();
+                if(key!="")
+                {
+                    //alert(key);
+                }
+                //anSelected[0].remove();
+                oTable.$('tr.row_selected').remove();
+                //oTable.row(".row_selected").remove();
+                oTable.draw();
+            }
+        } );
+
+        /* Add a click handler for the delete row */
+        $('#btnAdd').click( function() {
+            var tmpUrl=lcoUrl+"/Pledge/getOne";
+            OpenWindow(tmpUrl);
+        } );
+
+        /* Add a click handler for the delete row */
+        $('#btnEdit').click( function() {
+            //alert("edit");
+            var key=getKeyValue();
+            if(key!="")
+            {
+                //alert(key);
+                var tmpUrl=lcoUrl+"/Pledge/getOne?"+key;
+                OpenWindow(tmpUrl);
+            }
+        } );
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+   <link th:href="@{/dist/css/sb-admin-2.css}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+
+    <link th:href="@{/vendor/datepicker/datepicker3.css}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <div id="page-wrapper" style="margin-left: 0px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">质押信息</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+      <!--  <form  th:action="@{/app}"  th:object="${apply_entity}" method="post">  -->
+      <form name="actForm" method="post"  th:action="@{/Pledge/getOne}" th:object="${pleage_entity}" >
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">质押品信息</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>额度号：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" name="line_no" th:field="${pleage_entity.line_no}" >
+                                        <div th:if="${#fields.hasErrors('line_no')}" th:errors="${pleage_entity.line_no}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>质押物种类：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <select id="model1" class="form-control" selected="" ame="Mode1" th:field="*{Mode1}" >
+                                            <option value="0">-</option>
+                                            <option value="1">应收账款质押</option>
+                                            <option value="2">银行账户质押</option>
+                                            <option value="3">汽车合格证质押</option>
+                                            <option value="4">存单(折)质押</option>
+                                            <option value="5">权利凭证质押</option>
+                                            <option value="6">收费权质押</option>
+                                            <option value="7">知识产权质押</option>
+                                            <option value="8">提货单质押</option>
+                                            <option value="9">票据质押</option>
+                                            <option value="10">股份、股票质押</option>
+                                            <option value="11">仓单质押</option>
+                                            <option value="12">国债质押</option>
+                                            <option value="13">其他质押</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                      <div class="col-lg-3">
+                                        <label>质押金额：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="" name="AmountCCY" th:field="*{AmountCCY}" >
+                                            <option value="0">-</option>
+                                            <option value="1">RMB</option>
+                                            <option value="2">HKD</option>
+                                            <option value="3">USD</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <input class="form-control" name="Amount"  th:field="*{Amount}">
+                                        <div th:if="${#fields.hasErrors('Amount')}" th:errors="*{Amount}" class="alert alert-danger">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <label>质押物价值：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" selected="" name="ValueCCY" th:field="*{ValueCCY}">
+                                            <option value="0">-</option>
+                                            <option value="1">RMB</option>
+                                            <option value="2">HKD</option>
+                                            <option value="3">USD</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <input class="form-control"  name="Value"  th:field="*{Value}">
+                                        <div th:if="${#fields.hasErrors('Value')}" th:errors="*{Value}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>质押合同编号：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" name="ContractNumber" th:field="*{ContractNumber}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>质押合同签订日期：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" name="SignedDate" th:field="*{SignedDate}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>质押物名称：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" name="BankPledgeName" th:field="*{BankPledgeName}">
+                                        <div th:if="${#fields.hasErrors('BankPledgeName')}" th:errors="*{BankPledgeName}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <label>权属情况：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <select id="BankPledgeOwnerType" class="form-control" selected="" name="BankPledgeOwnerType" th:field="*{BankPledgeOwnerType}" >
+                                            <option value="0">公有</option>
+                                            <option value="1">自有</option>
+                                            <option value="2">他有</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>质押生效日：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input id="BankPledgeEffectiveDate" class="form-control"  name="BankPledgeEffectiveDate" th:field="*{BankPledgeEffectiveDate}">
+                                        <div th:if="${#fields.hasErrors('BankPledgeEffectiveDate')}" th:errors="*{BankPledgeEffectiveDate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <label>质押到期日：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input id="BankPledgeLastDate" class="form-control" name="BankPledgeLastDate" th:field="*{BankPledgeLastDate}">
+                                        <div th:if="${#fields.hasErrors('BankPledgeLastDate')}" th:errors="*{BankPledgeLastDate}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divOwer" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">权属情况</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>贷款卡编码：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input class="form-control"　name="Ethnic" th:field="*{Ethnic}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>证件类型：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                       <select class="form-control" selected=""　name="pIdTypeId" th:field="*{pIdTypeId}" >
+                                            <option th:each="tmpType,iterStat : ${pIDTypeText_entity}"   th:value="${tmpType.pidTypeId}" th:text="${tmpType.name}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <label>证件号码：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="pIdNo" th:field="*{pIdNo}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>抵押/质押 人名称：</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" name="MortgagorName"　th:field="*{MortgagorName}">
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <label>联系地址：</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input class="form-control" name="ContactAddress"　th:field="*{ContactAddress}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="col-lg-3">
+                                        <label>联系电话：</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" name="ContactPhone"　th:field="*{ContactPhone}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divReceivables" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree1">应收账款质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree1" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>应收账款出质人：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"　name="AccRecProvePerson" th:field="*{AccRecProvePerson}">
+                                        <div th:if="${#fields.hasErrors('AccRecProvePerson')}" th:errors="*{AccRecProvePerson}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>应收账款所有人：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="AccRecOwner" th:field="*{AccRecOwner}">
+                                        <div th:if="${#fields.hasErrors('AccRecOwner')}" th:errors="*{AccRecOwner}" class="alert alert-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>应收账款金额：</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <select class="form-control" selected="" name="AccRecAmountCCY" >
+                                        <option value="0">-</option>
+                                        <option value="1">RMB</option>
+                                        <option value="2">HKD</option>
+                                        <option value="3">USD</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input class="form-control" name="AccRecAmount" th:field="*{AccRecAmount}">
+                                    <div th:if="${#fields.hasErrors('AccRecAmount')}" th:errors="*{AccRecAmount}" class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div  class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-lg-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3" name="Remark" th:field="*{Remark}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divBankAccount" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree2">银行账户质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree2" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>账户名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="BankAccountName" th:field="*{BankAccountName}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>账户类别：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="BankAccountType" th:field="*{BankAccountType}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>开户（我行）行名：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="BankName" th:field="*{BankName}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>账号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="BankAccount" th:field="*{BankAccount}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>账户币种：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="BankAccountCCY" th:field="*{BankAccountCCY}" >
+                                            <option value="0">-</option>
+                                            <option value="1">RMB</option>
+                                            <option value="2">HKD</option>
+                                            <option value="3">USD</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>账户内余额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="BankAccountBalance" th:field="*{BankAccountBalance}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>是否执行冻结：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="BankIsFreezed" th:field="*{BankIsFreezed}">
+                                            <option value="0">否</option>
+                                            <option value="1">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>是否执行托管：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="BankAccountIsTrust"　 th:field="*{BankAccountIsTrust}" >
+                                            <option value="0">否</option>
+                                            <option value="1">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-lg-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3" name="Remark" th:field="*{Remark}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divCar" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree3">汽车合格证质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree3" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>出质人：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CarProvePerson" th:field="*{CarProvePerson}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>生产商：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CarProduction" th:field="*{CarProduction}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>合格证编号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CarNo" th:field="*{CarNo}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>车辆品牌：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CarBrand" th:field="*{CarBrand}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>汽车型号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CarType" th:field="*{CarType}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>发动机号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CarEngineNo" th:field="*{CarEngineNo}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>底盘号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CarChassisNo" th:field="*{CarChassisNo}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>单价：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CarPrice" th:field="*{CarPrice}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-lg-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3" ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divCDs" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree4">存单（折）质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree4" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>户名：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CDName" th:field="*{CDName}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>凭证种类：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="CDType"　th:field="*{CDType}" >
+                                            <option value="1">定期存单</option>
+                                            <option value="2">存折</option>
+                                            <option value="3">一本通</option>
+                                            <option value="4">一卡通</option>
+                                            <option value="5">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>凭证号码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" selected="" name="CDNO" th:field="*{CDNO}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>账号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CDAccount" th:field="*{CDAccount}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>开出行：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CDBank" th:field="*{CDBank}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>是否本行：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="CDIsSelfBank" th:field="*{CDIsSelfBank}">
+                                            <option value="0">否</option>
+                                            <option value="1">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>存单金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="CDAmount" th:field="*{CDAmount}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>是否止付：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="CDIsStopPay"　th:field="*{CDIsStopPay}" >
+                                            <option value="0">否</option>
+                                            <option value="1">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-lg-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3" ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divClaim" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree5">权利凭证质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree5" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>开出机构：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"　name="CerOrg" th:field="*{CerOrg}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>凭证客户名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"　name="CerCustomer" th:field="*{CerCustomer}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>凭证号码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"　name="CerNO" th:field="*{CerNO}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>凭证账号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"　name="CerAccount" th:field="*{CerAccount}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>凭证生效日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"　name="CerEffectiveDate" th:field="*{CerEffectiveDate}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>凭证到期日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"　name="CerLastDate" th:field="*{CerLastDate}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>凭证票面金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control"　name="CerAmount" th:field="*{CerAmount}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-lg-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divCharge" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree6">收费权质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree6" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>收费单位：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ChargeOrg" th:field="*{ChargeOrg}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>收费项目：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ChargeProject" th:field="*{ChargeProject}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>收费许可证号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ChargeLicenceNo" th:field="*{ChargeLicenceNo}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>收费权到期日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ChargeLastDate" th:field="*{ChargeLastDate}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>收费权质押登记机构：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ChargeRegOrg" th:field="*{ChargeRegOrg}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-md-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divIntellectual" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree7">知识产权质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree7" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>知识产权类型：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="IntProType"　th:field="*{IntProType}" >
+                                            <option value="1">专利权</option>
+                                            <option value="2">商标专用权</option>
+                                            <option value="3">著作权</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>知识产权所有人名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="IntProOwnerName" th:field="*{IntProOwnerName}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>出质登记机构：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="IntProProveOrg"　th:field="*{IntProProveOrg}" >
+                                            <option value="1">专利局</option>
+                                            <option value="2">商标局</option>
+                                            <option value="3">国家版权局</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>产权专利号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="IntProPatentNumber" th:field="*{IntProPatentNumber}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>产权登记机构：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="IntProRegOrg" th:field="*{IntProRegOrg}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>产权登记时间：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="IntProRegDate" th:field="*{IntProRegDate}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>核准号的保护时间：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="IntProtedDate" th:field="*{IntProtedDate}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>出质期限：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="IntProProveDate" th:field="*{IntProProveDate}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>质押登记编号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="IntProPledgeNo" th:field="*{IntProPledgeNo}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>登记机构：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="IntProOrg" th:field="*{IntProOrg}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-md-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divLading" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree8">提货单质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree8" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>订货单位：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadOrg" th:field="*{LadOrg}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>提货（自提）单号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadNo" th:field="*{LadNo}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>合同号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadContractNo" th:field="*{LadContractNo}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>商品编码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadCommodityCoding" th:field="*{LadCommodityCoding}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>发货单位：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadShippingUnit" th:field="*{LadShippingUnit}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>货品名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadGoods" th:field="*{LadGoods}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>规则：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadRule" th:field="*{LadRule}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>材质：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadCharacter" th:field="*{LadCharacter}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>提货数量：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadDeliveryNumber" th:field="*{LadDeliveryNumber}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>提货地点：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadDeliveryAddress" th:field="*{LadDeliveryAddress}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>开票人：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="LadDrawer" th:field="*{LadDrawer}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-md-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divTicket" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree9">票据质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree9" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>票据种类：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="NotesType"　th:field="*{NotesType}" >
+                                            <<option value="0">汇票</option>
+                                            <option value="0">本票</option>
+                                            <option value="0">支票</option>
+                                            <option value="0">商业承兑汇票 </option>
+                                            <option value="0">银行承兑汇票 </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>票据号码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="NotesNO" th:field="*{NotesNO}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>票据金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="NotesAmount" th:field="*{NotesAmount}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>票据开出行：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="NotesBank" th:field="*{NotesBank}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>票据签发日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="NotesSignedDate" th:field="*{NotesSignedDate}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>票据到期日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="NotesLastDate" th:field="*{NotesLastDate}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>存放地：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="NotesAddress" th:field="*{NotesAddress}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-md-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divStock" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree10">股份、股票质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree10" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>持股人名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockOwnerName" th:field="*{StockOwnerName}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>股份数量：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockNumber" th:field="*{StockNumber}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>股权证编号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockNo" th:field="*{StockNo}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>股份性质：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockNature" th:field="*{StockNature}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>持有人名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockHoldersName" th:field="*{StockHoldersName}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>证券账户号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockSecuritiesAccountNo" th:field="*{StockSecuritiesAccountNo}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>开户机构：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockInstitutions" th:field="*{StockInstitutions}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>证券质押登记编号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockRegNo" th:field="*{StockRegNo}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>出质人股票账户号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockInvestorsAccount" th:field="*{StockInvestorsAccount}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>证券代码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockCode" th:field="*{StockCode}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>质押证券简称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockPledgeRef" th:field="*{StockPledgeRef}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>质押证券数量：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockPledgeNumber" th:field="*{StockPledgeNumber}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>股份性质证券质押登记日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="StockPledgeRegDate" th:field="*{StockPledgeRegDate}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-md-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divWarehouse" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree11">仓单质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree11" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>仓单所有人（出质人）：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrOwner" th:field="*{WrOwner}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>仓储单位：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrOrg" th:field="*{WrOrg}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>仓单编号：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrNo" th:field="*{WrNo}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>仓储名称：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrName" th:field="*{WrName}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>规格：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrStandard" th:field="*{WrStandard}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>单位：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrUnit" th:field="*{WrUnit}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>数量：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrNumber" th:field="*{WrNumber}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>交货员：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrDeliveryStaff" th:field="*{WrDeliveryStaff}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>验收员（库管员）：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrAcceptanceStaff" th:field="*{WrAcceptanceStaff}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>货物价值：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrGoodsValue" th:field="*{WrGoodsValue}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>仓储费用：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrStorageCosts" th:field="*{WrStorageCosts}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>货物是否保险：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="WrHaveInsurance"　th:field="*{WrHaveInsurance}" >
+                                            <option value="0">否</option>
+                                            <option value="1">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保险生效日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrInsuranceBeginDate" th:field="*{WrInsuranceBeginDate}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>保险到期日：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="WrInsuranceEndDate" th:field="*{WrInsuranceEndDate}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-md-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divNational" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree12">国债质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree12" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>国债种类：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select class="form-control" selected="" name="ND_Kind"　th:field="*{ND_Kind}" >
+                                            <option value="1">凭证式国债</option>
+                                            <option value="2">储蓄国债（电子式）</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>凭证号码：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ND_ID" th:field="*{ND_ID}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label> 国债利率(%)：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ND_Rate" th:field="*{ND_Rate}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>国债期限：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ND_Deadline" th:field="*{ND_Deadline}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>权利年收益金额：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ND_Amoun" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>国债承销行：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ND_Bank" th:field="*{ND_Bank}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>国债认购日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ND_BeginDate" th:field="*{ND_BeginDate}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>国债到期日期：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ND_EndDate" th:field="*{ND_EndDate}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>存放地：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="ND_Address" th:field="*{ND_Address}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-md-3">
+                                        <label>备注</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <textarea class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divOther" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree13">其他质押</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree13" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>单位：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="Other_Unit" th:field="*{Other_Unit}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>数量：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="Other_Number" th:field="*{Other_Number}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <label>所在地：</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input class="form-control" name="Other_Addres" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:insert="~{divRemark}">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <button type="reset" class="btn btn-primary">重  填</button>
+                    <button type="submit" class="btn btn-primary">保  存</button>
+                    <button id="applyloan" class="btn btn-primary">applyloan</button>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+          <input type="hidden" name="id" > </input>
+          <input type="hidden" name="custcod" th:field="*{custcod}" > </input>
+          <input type="hidden" name="action" id="action" th:field="*{action}" > </input>
+
+        </form>
+
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+
+
+
+
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/dist/js/sb-admin-2.js}"></script>
+
+<script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+
+<script>
+
+    function ShowData()
+    {
+        $("div[id^='div']").hide();
+        var locVal=$("#model1").val();
+        if(locVal=="1")
+        {
+            $("#divReceivables").show();
+        }
+        else if(locVal=="2")
+        {
+            $("#divBankAccount").show();
+        }
+        else  if(locVal=="3")
+        {
+            $("#divCar").show();
+        }
+        if(locVal=="4")
+        {
+            $("#divCDs").show();
+        }
+        else if(locVal=="5")
+        {
+            $("#divClaim").show();
+        }
+        else  if(locVal=="6")
+        {
+            $("#divCharge").show();
+        }
+        else  if(locVal=="7")
+        {
+            $("#divIntellectual").show();
+        }
+        else   if(locVal=="8")
+        {
+            $("#divLading").show();
+        }
+        else  if(locVal=="9")
+        {
+            $("#divTicket").show();
+        }
+        else  if(locVal=="10")
+        {
+            $("#divStock").show();
+        }
+        else  if(locVal=="11")
+        {
+            $("#divWarehouse").show();
+        }
+        else  if(locVal=="12")
+        {
+            $("#divNational").show();
+        }
+        else  if(locVal=="13")
+        {
+            $("#divOther").show();
+        }
+    }
+
+    function ShowOwerData()
+    {
+        $("#divOwer").hide();
+        var locVal=$("#BankPledgeOwnerType").val();
+        //alert(locVal);
+        if(locVal!="1")
+        {
+            $("#divOwer").show();
+        }
+    }
+
+
+    $(document).ready(function() {
+        $("div[id^='div']").hide();
+        //$("#divOwer").show();
+        ShowData();
+        ShowOwerData();
+
+        $("#model1").change( function(e) {
+            //alert(locVal);
+            //$("div[id^='div']").find("input") .val("");
+            //$("div[id^='div']").find("select") .val("");
+            // $("div[id^='div']").find("textarea") .val("");
+            ShowData();
+        });
+
+        $("#applyloan").click( function(e) {
+
+            $("#action").val("applyloan");
+            $("form").submit();
+        });
+
+
+        $("#BankPledgeOwnerType").change( function(e) {
+            ShowOwerData();
+               });
+
+        $('#BankPledgeEffectiveDate').datepicker({
+            format: 'yyyymmdd',
+            weekStart: 1,
+            autoclose: true,
+            todayBtn: 'linked',
+            language: 'zh-CN'
+        }).on('changeDate',function(ev){
+
+        });
+
+        $('#BankPledgeLastDate').datepicker({
+            format: 'yyyymmdd',
+            weekStart: 1,
+            autoclose: true,
+            todayBtn: 'linked',
+            language: 'zh-CN'
+        }).on('changeDate',function(ev){
+
+        });
+
+        $('#SignedDate').datepicker({
+            format: 'yyyymmdd',
+            weekStart: 1,
+            autoclose: true,
+            todayBtn: 'linked',
+            language: 'zh-CN'
+        }).on('changeDate',function(ev){
+
+        });
+
+    })
+</script>
+</body>
+
+</html>

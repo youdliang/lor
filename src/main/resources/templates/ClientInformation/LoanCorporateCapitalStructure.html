@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:display="http://www.w3.org/1999/xhtml"
+      xmlns:div.display="http://www.w3.org/1999/xhtml" xmlns:row.display="http://www.w3.org/1999/xhtml">
+<head>
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap-table.js}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{/dist/js/sb-admin-2.js}"></script>
+    <script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+    <link href="/vendor/bootstrap/css/bootstrap-table.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/vendor/datepicker/datepicker3.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LoanCorporateCapitalStructure</title>
+
+    <!-- Bootstrap Core CSS -->
+
+
+</head>
+
+
+<body onload="getCustCode()">
+
+<div id="page-LoanCorporateCapitalStructure">
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#home" data-toggle="tab">
+                资本构成信息
+            </a>
+        </li>
+        <li><a href="javascript:void(0)" id="deleteAction">删除</a></li>
+    </ul>
+    <div class="tab-pane fade in active" id="home">
+        <form name="LoanCorporateCapitalStructure" th:action="@{/LoanCorporateCapitalStructure}"
+              th:object="${loanCorporateCapitalStructure_entity}"
+              method="post">
+            <input class="form-control" id="Id" type="hidden" name="Id" th:field="*{Id}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">资本构成</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>客户号:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{custcode}"
+                                           name="custcode " maxlength="12" readonly id="custcode"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>出资方类型:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <select class="form-control" th:field="*{InvestmentPartyType}"
+                                            name="InvestmentPartyType">
+                                        <option value="N">企业</option>
+                                        <option value="Y">个人</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('custcode')}"
+                                         th:errors="${loanCorporateCapitalStructure_entity.custcode}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('InvestmentPartyType')}"
+                                         th:errors="${loanCorporateCapitalStructure_entity.InvestmentPartyType}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>出资方名称:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{InvestmentPartyName}"
+                                           name="InvestmentPartyName " maxlength="80">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>出资方贷款卡编码:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{CreditCardNumber}"
+                                           name="CreditCardNumber " maxlength="16">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('InvestmentPartyName')}"
+                                         th:errors="${loanCorporateCapitalStructure_entity.InvestmentPartyName}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('CreditCardNumber')}"
+                                         th:errors="${loanCorporateCapitalStructure_entity.CreditCardNumber}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>组织机构代码:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{OrganizationCode}"
+                                           name="OrganizationCode " maxlength="10">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label>登记注册号:</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input class="form-control" th:field="*{RegistrationID}"
+                                           name="RegistrationID  " maxlength="20"
+                                           pattern="^[A-Za-z0-9]+$" th:title="请输入20位以内的数字或者英文">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('OrganizationCode')}"
+                                         th:errors="${loanCorporateCapitalStructure_entity.OrganizationCode}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div th:if="${#fields.hasErrors('RegistrationID')}"
+                                         th:errors="${loanCorporateCapitalStructure_entity.RegistrationID}"
+                                         class="alert alert-danger">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel panel-default" th:object="${LoanCorporateCapitalStructure_History}">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseHistory">保存记录</a>
+                    </h4>
+                </div>
+                <div id="collapseHistory" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <table id="historyTable">
+                            <thead>
+                            </thead>
+                        </table>
+                        <br/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4" align="center">
+                    <button type="reset" class="btn btn-primary">重 填</button>
+                    <button type="submit" class="btn btn-primary">保 存</button>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    $('.datepicker').datepicker({
+        language: 'zh-CN',
+        format: 'yyyymmdd',
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true,
+
+    });
+
+    $('#historyTable').bootstrapTable({
+        url: 'http://localhost:8001/LoanCorporateCapitalStructure/getHistoryList',         //请求后台的URL（*）
+        method: 'get',                      //请求方式（*）
+        toolbar: '#toolbar',                //工具按钮用哪个容器
+        striped: true,                      //是否显示行间隔色
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        sortable: false,                     //是否启用排序
+        sortOrder: "asc",
+//        dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里只有前后端约定好就行
+        locale: 'zh-CN',                     //中文支持
+        pagination: true,                   //是否分页
+        sidePagination: 'server',           //指定服务器端分页
+        pageNumber: 1,                      //初始化加载第一页，默认第一页
+        pageSize: 5,                       //每页的记录行数（*）
+        pageList: [5, 10, 15, 50, 100, 'ALL'],        //可供选择的每页的行数（*）
+//        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        strictSearch: true,                 //搜索
+        showColumns: true,                  //是否显示所有的列
+        showRefresh: true,                  //是否显示刷新按钮
+        minimumCountColumns: 1,             //最少允许的列数
+        clickToSelect: true,                //是否启用点击选中行
+//                height: 500,              //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        uniqueId: "custcode",               //每一行的唯一标识，一般为主键列
+        showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+        cardView: false,                    //是否显示详细视图
+        detailView: false,                   //是否显示父子表
+        queryParams: queryParams,//请求服务器时所传的参数
+        responseHandler: responseHandler,//请求数据成功后，渲染表格前的方法
+        onClickRow: onClickRow,
+        columns: [{
+            field: 'Id',
+            title: 'Id'
+        }, {
+            field: 'InvestmentPartyType',
+            title: '出资方类型'
+        }, {
+            field: 'InvestmentPartyName',
+            title: '出资方名称'
+        }, {
+            field: 'CreditCardNumber',
+            title: '出资方贷款卡编码'
+        }, {
+            field: 'OrganizationCode',
+            title: '组织机构代码'
+        }, {
+            field: 'RegistrationID',
+            title: '注册账号'
+        }]
+    })
+    //点击行事件
+    function onClickRow(item, $element) {
+        $('#Id').val(item.Id);
+        $('#custcode').val(item.custcode);
+        $('#InvestmentPartyType').val(item.InvestmentPartyType);
+        $('#InvestmentPartyName').val(item.InvestmentPartyName);
+        $('#CreditCardNumber').val(item.CreditCardNumber);
+        $('#OrganizationCode').val(item.OrganizationCode);
+        $('#RegistrationID').val(item.RegistrationID);
+        return true;
+    }
+    //请求服务数据时所传参数
+    function queryParams(params) {
+        return {
+            pageSize: params.limit, //每一页的数据行数，默认是上面设置的10(pageSize)
+            pageIndex: params.offset / params.limit + 1, //当前页面,默认是上面设置的1(pageNumber)
+        }
+    }
+
+    //请求成功方法
+    function responseHandler(result) {
+        var errCode = result.errCode;//在此做了错误代码的判断
+        if (errCode != 0) {
+            alert("错误代码" + errCode);
+            return;
+        }
+        //如果没有错误则返回数据，渲染表格
+        return {
+            total: result.dataLength, //总页数,前面的key必须为"total"
+            rows: result.rowDatas //行数据，前面的key要与之前设置的dataField的值一致.
+        };
+    };
+
+
+    $('#deleteAction').click(function () {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8001/LoanCorporateCapitalStructure/delete?'
+            + 'Id=' + $('#Id').val()
+            + '',
+            contentType: "application/json",
+            success: function (data) {
+//                $('#historyTable').bootstrapTable("refresh",{url:"http://localhost:8001/LoanApplicantGuarantee/getHistoryList"})
+                location.replace(location.href);
+            },
+            error: function () {
+                alert("error");
+            }
+        })
+    });
+
+
+    function getCustCode() {
+        var CustCode = document.getElementById("custcode");
+        CustCode.value = $.ajax({
+            type: "get",
+            url: "http://localhost:8001/LoanCorporateCapitalStructure/getCustCode",
+            async: false
+        }).responseText;
+    }
+</script>
+</body>
+
+</html>

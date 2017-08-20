@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:display="http://www.w3.org/1999/xhtml"
+      xmlns:div.display="http://www.w3.org/1999/xhtml" xmlns:row.display="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LoanBusinessPersonInfo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap-table.js}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script th:src="@{/vendor/metisMenu/metisMenu.min.js}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script th:src="@{/dist/js/sb-admin-2.js}"></script>
+    <script th:src="@{/vendor/datepicker/bootstrap-datepicker.js}"></script>
+    <link href="/vendor/bootstrap/css/bootstrap-table.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/vendor/datepicker/datepicker3.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body>
+
+<div id="page-LoanBusinessPersonInfo">
+    <div class="row">
+        <div class="col-lg-12">
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#home" data-toggle="tab">
+                        业务情况
+                    </a>
+                </li>
+                <li><a href="javascript:void(0)" id="deleteAction">删除</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="tab-pane fade in active" id="home">
+        <form name="portgage" th:action="@{/LoanBusinessPersonInfo}" th:object="${loanBusinessPersonInfo_entity}"
+              method="post">
+            <input class="form-control" id="custCode" type="hidden" name="custCode" th:field="*{custCode}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">申请人信息</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label>开业日期：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input id="BusinessOpeningDate"
+                                       class="form-control pull-right datepicker"
+                                       th:field="*{BusinessOpeningDate}"
+                                       name="BusinessOpeningDate"
+                                >
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label>雇员数量：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input class="form-control" th:field="*{NumberOfEmployee}" name="NumberOfEmployee"
+                                       id="NumberOfEmployee">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div th:if="${#fields.hasErrors('BusinessOpeningDate')}"
+                                     th:errors="${loanBusinessPersonInfo_entity.BusinessOpeningDate}"
+                                     class="alert alert-danger">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div th:if="${#fields.hasErrors('NumberOfEmployee')}"
+                                     th:errors="${loanBusinessPersonInfo_entity.NumberOfEmployee}"
+                                     class="alert alert-danger">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label>营业执照号：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input class="form-control" th:field="*{BusinessCerficateID}" name="BusinessCerficateID"
+                                       id="BusinessCerficateID">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label>营业执照登记日期：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input id="BusinessRegisterDate"
+                                       class="form-control pull-right datepicker"
+                                       th:field="*{BusinessRegisterDate}"
+                                       name="BusinessRegisterDate"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div th:if="${#fields.hasErrors('BusinessCerficateID')}"
+                                     th:errors="${loanBusinessPersonInfo_entity.BusinessCerficateID}"
+                                     class="alert alert-danger">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div th:if="${#fields.hasErrors('BusinessRegisterDate')}"
+                                     th:errors="${loanBusinessPersonInfo_entity.BusinessRegisterDate}"
+                                     class="alert alert-danger">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label>营业执照登记地点：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input id="BusinessRegisterLocation"
+                                       class="form-control"
+                                       th:field="*{BusinessRegisterLocation}"
+                                       name="BusinessRegisterLocation"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div th:if="${#fields.hasErrors('BusinessRegisterLocation')}"
+                                     th:errors="${loanBusinessPersonInfo_entity.BusinessRegisterLocation}"
+                                     class="alert alert-danger">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label>信息途径类别：</label>
+                            </div>
+                            <div class="col-lg-4">
+                                <select class="form-control" selected="" id="InformationChannelCategory"
+                                        th:field="*{InformationChannelCategory}" name="InformationChannelCategory">
+                                    <option value="1">交通工具上广告</option>
+                                    <option value="2">私人关系</option>
+                                    <option value="3">宣传单</option>
+                                    <option value="4">宣传栏</option>
+                                    <option value="5">微贷项目客户</option>
+                                    <option value="6">电视</option>
+                                    <option value="7">广告牌</option>
+                                    <option value="8">其它</option>
+                                    <option value="9">广播电台</option>
+                                    <option value="10">网络</option>
+                                    <option value="11">代理人</option>
+                                    <option value="12">银行客户</option>
+                                    <option value="13">朋友/家人</option>
+                                    <option value="14">报纸</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label>信息途径：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <input id="InformationChannelDescription"
+                                       class="form-control"
+                                       th:field="*{InformationChannelDescription}"
+                                       name="InformationChannelDescription"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label></label>
+                            </div>
+                            <div class="col-lg-4">
+                                <div th:if="${#fields.hasErrors('InformationChannelCategory')}"
+                                     th:errors="${loanBusinessPersonInfo_entity.InformationChannelCategory}"
+                                     class="alert alert-danger">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div th:if="${#fields.hasErrors('InformationChannelDescription')}"
+                                     th:errors="${loanBusinessPersonInfo_entity.InformationChannelDescription}"
+                                     class="alert alert-danger">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label>业务描述：</label>
+                            </div>
+                            <div class="col-lg-8">
+                                <textarea class="form-control" row="5" th:field="*{BusinessDescription}"
+                                          name="BusinessDescription" id="BusinessDescription"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <label></label>
+                            </div>
+                            <div class="col-lg-8">
+                                <div th:if="${#fields.hasErrors('BusinessDescription')}"
+                                     th:errors="${loanBusinessPersonInfo_entity.BusinessDescription}"
+                                     class="alert alert-danger">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4" align="center">
+                    <button type="reset" class="btn btn-primary">重填</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        var isRecord = false;
+        var record = $.ajax({
+            url: "http://localhost:8001/" +
+            "LoanBusinessPersonInfo/getHistoryListisRecord",
+            async: false,
+            dataType: "string",
+            type: "get"
+        }).responseText;
+        if (record == "true") isRecord = true;
+        else
+            isRecord = false;
+        $.ajax({
+            url: "http://localhost:8001/LoanBusinessPersonInfo/getHistoryList",
+            async: false,
+            dataType: "json",
+            type: "get",
+            success: function (data) {
+                //判断数量
+                if (isRecord) {
+                    $('#custCode').val(data[0].custCode);
+                    $('#BusinessCerficateID').val(data[0].BusinessCerficateID);
+                    $('#BusinessDescription').val(data[0].BusinessDescription);
+                    $('#BusinessOpeningDate').val(data[0].BusinessOpeningDate);
+                    $('#BusinessRegisterDate').val(data[0].BusinessRegisterDate);
+                    $('#BusinessRegisterLocation').val(data[0].BusinessRegisterLocation);
+                    $('#InformationChannelCategory').val(data[0].InformationChannelCategory);
+                    $('#InformationChannelDescription').val(data[0].InformationChannelDescription);
+                    $('#NumberOfEmployee').val(data[0].NumberOfEmployee);
+                }
+            },
+            error: function () {
+                if (isRecord)
+                    alert("获取记录失败");
+            }
+        });
+    })
+
+    $('.datepicker').datepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        todayBtn: "linked",
+        autoclose: true,
+        todayHighlight: true
+    });
+
+    $('#deleteAction').click(function () {
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:8001/LoanBusinessPersonInfo/delete?'
+            + 'custCode=' + $('#custCode').val()
+            + '',
+            contentType: "application/json",
+            success: function (data) {
+//                $('#historyTable').bootstrapTable("refresh",{url:"http://localhost:8001/LoanBusinessPersonInfo/getHistoryList"})
+                location.replace(location.href);
+            },
+            error: function () {
+                alert("删除失败")
+            }
+        })
+    });
+
+
+</script>
+
+
+</body>
+
+</html>
