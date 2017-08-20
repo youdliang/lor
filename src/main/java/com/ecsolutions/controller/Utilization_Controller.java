@@ -42,6 +42,13 @@ public class Utilization_Controller {
         utilization_entity.setCustcod(custcod);
         model.addAttribute("utilization_entity", utilization_entity);
         model.addAttribute("utilization_info", utilization_service.getPopupInfo());
+        //利率信息
+        List<HashMap<String,Object>> ratetypeList = new ArrayList<HashMap<String,Object>>();
+        HashMap<String,Object> ratetypemap = new HashMap<String,Object>();
+        ratetypemap.put("RATETYP","");
+        ratetypemap.put("INTRTPA","");
+        ratetypeList.add(ratetypemap);
+        model.addAttribute("ratetype_info",ratetypeList);
         //大类信息
         List<HashMap<String,String>> daleiList = new ArrayList<HashMap<String,String>>();
         HashMap<String,String> daleimap = new HashMap<String,String>();
